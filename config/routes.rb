@@ -13,4 +13,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "homepage#index"
+  resources :users, only: %i[ create edit update show destroy ]
+
+  get 'signup', to: 'users#new'
+  get 'login', to: 'users#login'
+  get 'login_user', to: 'users#login_user'
 end
