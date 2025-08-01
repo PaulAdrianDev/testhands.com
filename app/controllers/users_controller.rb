@@ -6,12 +6,22 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user = User.new
   end
 
   def create
+    return redirect_to signup_path, alert: "You must fill in all fields." if any_information_is_missing?
+
+    @user = User.create(user_params)
+    if @user.save
+      redirect_to root_path, notice: "Account Created Successfully."
+    else
+      redirect_to signup_path, alert: "An error occurred." # MAYBE USERNAME OR EMAIL IS TAKEN CHECK USER ERRORS 
+    end
   end
 
   def login
+    @user = User.new
   end
 
   def login_user
@@ -40,5 +50,9 @@ class UsersController < ApplicationController
   def start_session
     start_new_session_for @user
     redirect_to root_path
+  end
+
+  def any_information_is_missing?
+    user_params.blank? || user_params[:username].blank? || user_params[:email_address].blank? || user_params[:password].blank?
   end
 end
