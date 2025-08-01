@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "Account Created Successfully."
     else
-      redirect_to signup_path, alert: "An error occurred." # MAYBE USERNAME OR EMAIL IS TAKEN CHECK USER ERRORS 
+      redirect_to signup_path, alert: "An error occurred." # MAYBE USERNAME OR EMAIL IS TAKEN CHECK USER ERRORS
     end
   end
 
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit( :username, :email_address, :password )
+    params.require(:user).permit(:username, :email_address, :password)
   end
 
   def start_session

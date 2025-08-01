@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resource :session, only: [:destroy]
+  resource :session, only: [ :destroy ]
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   root "homepage#index"
   resources :users, only: %i[ create edit update show destroy ]
 
-  get 'signup', to: 'users#new'
-  get 'login', to: 'users#login'
-  get 'login_user', to: 'users#login_user'
+  get "signup", to: "users#new"
+  get "login", to: "users#login"
+  get "login_user", to: "users#login_user"
 end
