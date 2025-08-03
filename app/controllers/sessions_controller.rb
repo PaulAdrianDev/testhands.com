@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(user_params)
       start_new_session_for user
-      redirect_to root_path, notice: "Signed in successfully"
+      redirect_to root_path, notice: "Logged in successfully."
     else
       redirect_to login_path, alert: "Error logging in"
     end
