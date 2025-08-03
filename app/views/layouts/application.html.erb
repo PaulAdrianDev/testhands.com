@@ -23,6 +23,8 @@
   </head>
 
   <body>
+    <%= render 'shared/alert' if alert %>
+    <%= render 'shared/notice' if notice %>
     <%= yield %>
   </body>
 </html>
