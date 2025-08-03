@@ -72,4 +72,63 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context "when the email address" do
+    context "is blank" do
+      let(:email_address){ "" }
+
+      it "is invalid" do
+        expect(user).to be_invalid
+        expect(user.errors[:email_address]).to include("can't be blank")
+      end
+    end
+
+    context "is nil" do
+      let(:email_address){ nil }
+
+      it "is invalid" do
+        expect(user).to be_invalid
+        expect(user.errors[:email_address]).to include("can't be blank")
+      end
+    end
+    
+    context "is same as another user" do
+      let!(:user2){ User.create(username:"OtherUser", email_address: "someuser@email.com", password:"password123")}
+
+      it "is invalid" do
+        expect(user).to be_invalid
+        expect(user.errors[:email_address]).to include("has already been taken")
+      end
+    end
+  end
+
+  context "when the password" do
+    context "is blank" do
+      let(:password){ "" }
+      
+      it "is invalid" do
+        expect(user).to be_invalid
+
+        expect(user.errors[:password]).to include("can't be blank")
+      end
+    end
+
+    context "is nil" do
+      let(:password){ nil }
+      
+      it "is invalid" do
+        expect(user).to be_invalid
+
+        expect(user.errors[:password]).to include("can't be blank")
+      end
+    end
+
+    context "is less than 8 characters" do
+      let(:password){ "123" }
+
+      it "is invalid" do
+        expect(user).to be_invalid
+        expect(user.errors[:password]).to include("is too short (minimum is 8 characters)")
+      end
+    end
+  end
 end
