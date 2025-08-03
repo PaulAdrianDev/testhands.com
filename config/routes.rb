@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resource :session, only: [ :destroy ]
+  resource :session, only: %i[ create destroy ]
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -17,5 +17,4 @@ Rails.application.routes.draw do
 
   get "signup", to: "users#new"
   get "login", to: "users#login"
-  get "login_user", to: "users#login_user"
 end

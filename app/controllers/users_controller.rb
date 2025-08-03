@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create login login_user ]
-  rate_limit to: 10, within: 3.minutes, only: :login_user, with: -> { redirect_to new_session_url, alert: "Try again later." }
+  allow_unauthenticated_access only: %i[ new create login ]
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def show
   end
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
     @user = User.create(user_params)
     if @user.save
+      start_new_session_for @user
       redirect_to root_path, notice: "Account Created Successfully."
     else
       redirect_to signup_path, alert: "An error occurred." # MAYBE USERNAME OR EMAIL IS TAKEN CHECK USER ERRORS
@@ -22,14 +23,6 @@ class UsersController < ApplicationController
 
   def login
     @user = User.new
-  end
-
-  def login_user
-    if @user = User.authenticate_by(user_params)
-      start_session
-    else
-      redirect_to login_path, alert: "Invalid email or password"
-    end
   end
 
   def edit
@@ -45,11 +38,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email_address, :password)
-  end
-
-  def start_session
-    start_new_session_for @user
-    redirect_to root_path
   end
 
   def any_information_is_missing?
