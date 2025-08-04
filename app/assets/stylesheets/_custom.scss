@@ -1,3 +1,13 @@
 .font-secondary{
   font-family: $font-family-secondary;
 }
+
+body{
+  min-height:100vh;
+  background: radial-gradient(rgb(39, 39, 39),rgb(11, 11, 11));
+}
+
+.nav-logo{
+  width:13vw;
+  min-width:140px;
+}

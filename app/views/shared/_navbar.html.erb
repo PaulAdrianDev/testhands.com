@@ -1,0 +1,35 @@
+<nav class="navbar navbar-dark bg-none navbar-expand-md mb-4">
+  <div class="container-fluid">
+    <%= link_to root_path do %>
+      <% image_tag "logo.png", class: "nav-logo d-block d-md-none" %>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-body">
+        <button type="button" class="btn-close d-block d-md-none" data-bs-dismiss="offcanvas" aria-label="Close" style="justify-self: flex-end"></button>
+        <ul class="navbar-nav justify-content-evenly align-items-center flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">How it works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Support</a>
+          </li>
+          <%= link_to root_path do %>
+            <% image_tag "logo.png", class: "nav-logo d-none d-md-block" %>
+          <% end %>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contributors</a>
+          </li>
+          <li class="nav-item">
+            <% if authenticated? %>
+              <%= link_to "Profile", user_path(@user.id), class: "btn btn-primary fs-4 px-4" %>
+            <% else %>
+              <%= link_to "Log In", login_path, class: "btn btn-primary fs-4 px-4" %>
+            <% end %>
+          </li>
+      </div>
+    </div>
+  </div>
+</nav>
