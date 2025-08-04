@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       start_new_session_for @user
       redirect_to root_path, notice: "Account Created Successfully."
     else
-      redirect_to signup_path, alert: "An error occurred." # MAYBE USERNAME OR EMAIL IS TAKEN CHECK USER ERRORS
+      render :new, status: :unprocessable_entity
     end
   end
 
