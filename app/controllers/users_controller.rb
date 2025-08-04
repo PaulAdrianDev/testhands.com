@@ -44,6 +44,6 @@ class UsersController < ApplicationController
     params_needed = [ :username, :email_address, :password, :password_confirmation ]
 
     params_needed.each { |par| return true if user_params[par].blank? }
-    return false
+    false
   end
 end

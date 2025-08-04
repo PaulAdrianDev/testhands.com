@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user){ User.new(username: username, email_address: email_address, password: password) }
-  let(:username){ "SomeUser" }
-  let(:email_address){ "someuser@email.com" }
-  let(:password){ "password123" }
+  let(:user) { User.new(username: username, email_address: email_address, password: password) }
+  let(:username) { "SomeUser" }
+  let(:email_address) { "someuser@email.com" }
+  let(:password) { "password123" }
 
   context "when all the data is correct" do
     it "is valid" do
@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
   context "when the username" do
     context "is blank" do
-      let(:username){ "" }
+      let(:username) { "" }
 
       it "is invalid" do
         expect(user).to be_invalid
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
     end
 
     context "is nil" do
-      let(:username){ nil }
+      let(:username) { nil }
 
       it "is invalid" do
         expect(user).to be_invalid
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
 
     context "is same as another user" do
       context "(case sensitive)" do
-        let!(:user2){ User.create(username:"SomeUser", email_address: "someoneelse@email.com", password:"password123")}
+        let!(:user2) { User.create(username: "SomeUser", email_address: "someoneelse@email.com", password: "password123") }
 
         it "is invalid" do
           expect(user).to be_invalid
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
       end
 
       context "(case insensitive)" do
-        let!(:user2){ User.create(username:"SoMeuSeR", email_address: "someoneelse@email.com", password:"password123")}
+        let!(:user2) { User.create(username: "SoMeuSeR", email_address: "someoneelse@email.com", password: "password123") }
 
         it "is invalid" do
           expect(user).to be_invalid
@@ -53,7 +53,7 @@ RSpec.describe User, type: :model do
 
     context "has length" do
       context "less than 3 characters" do
-        let(:username){ "xx" }
+        let(:username) { "xx" }
 
         it "is invalid" do
           expect(user).to be_invalid
@@ -62,7 +62,7 @@ RSpec.describe User, type: :model do
       end
 
       context "more than 20 characters" do
-        let(:username){ "012345678901234567891"}
+        let(:username) { "012345678901234567891" }
 
         it "is invalid" do
           expect(user).to be_invalid
@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
 
   context "when the email address" do
     context "is blank" do
-      let(:email_address){ "" }
+      let(:email_address) { "" }
 
       it "is invalid" do
         expect(user).to be_invalid
@@ -83,16 +83,16 @@ RSpec.describe User, type: :model do
     end
 
     context "is nil" do
-      let(:email_address){ nil }
+      let(:email_address) { nil }
 
       it "is invalid" do
         expect(user).to be_invalid
         expect(user.errors[:email_address]).to include("can't be blank")
       end
     end
-    
+
     context "is same as another user" do
-      let!(:user2){ User.create(username:"OtherUser", email_address: "someuser@email.com", password:"password123")}
+      let!(:user2) { User.create(username: "OtherUser", email_address: "someuser@email.com", password: "password123") }
 
       it "is invalid" do
         expect(user).to be_invalid
@@ -103,8 +103,8 @@ RSpec.describe User, type: :model do
 
   context "when the password" do
     context "is blank" do
-      let(:password){ "" }
-      
+      let(:password) { "" }
+
       it "is invalid" do
         expect(user).to be_invalid
 
@@ -113,8 +113,8 @@ RSpec.describe User, type: :model do
     end
 
     context "is nil" do
-      let(:password){ nil }
-      
+      let(:password) { nil }
+
       it "is invalid" do
         expect(user).to be_invalid
 
@@ -123,7 +123,7 @@ RSpec.describe User, type: :model do
     end
 
     context "is less than 8 characters" do
-      let(:password){ "123" }
+      let(:password) { "123" }
 
       it "is invalid" do
         expect(user).to be_invalid
@@ -132,7 +132,7 @@ RSpec.describe User, type: :model do
     end
 
     context "is more than 72 characters" do
-      let(:password){ "01234567890123456789012345678901234567890123456789012345678901234567890123" }
+      let(:password) { "01234567890123456789012345678901234567890123456789012345678901234567890123" }
 
       it "is invalid" do
         expect(user).to be_invalid
