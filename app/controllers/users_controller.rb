@@ -37,10 +37,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email_address, :password)
+    params.require(:user).permit(:username, :email_address, :password, :password_confirmation)
   end
 
   def any_information_is_missing?
-    user_params.blank? || user_params[:username].blank? || user_params[:email_address].blank? || user_params[:password].blank?
+    params_needed = [ :username, :email_address, :password, :password_confirmation ]
+
+    params_needed.each { |par| return true if user_params[par].blank? }
+    return false
   end
 end
