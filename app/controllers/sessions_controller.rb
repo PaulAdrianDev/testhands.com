@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to root_path, alert: "Maximum log in attempts reached. Please try again later." }
   allow_unauthenticated_access only: :create
 
   def create
@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       start_new_session_for user
       redirect_to root_path, notice: "Logged in successfully."
     else
-      redirect_to login_path, alert: "Error logging in"
+      redirect_to login_path, alert: "Invalid Email or Password."
     end
   end
 

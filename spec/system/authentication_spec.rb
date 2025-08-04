@@ -8,18 +8,29 @@ RSpec.describe "Authentication", type: :system do
       it "redirects to root path" do
         visit login_path
 
-        fill_in 'user_email_address', with: "pablo@email.com"
-        fill_in 'user_password', with: "pablo123123"
-        
+        fill_in 'user_email_address', with: user.email_address
+        fill_in 'user_password', with: user.password
         click_button "Log In"
 
         expect(page).to have_content("Logged in successfully.")
         expect(current_path).to eql(root_path)
       end
+
+      context "with wrong details" do
+        it "warns the user" do
+          visit login_path
+
+          fill_in 'user_email_address', with: user.email_address
+          fill_in 'user_password', with: "wrongpassword"
+          click_button "Log In"
+
+          expect(page).to have_content("Invalid Email or Password.")
+          expect(current_path).to eql(login_path)
+        end
+      end
     end
 
     context "signs up" do
-
       it "redirects to root path" do
         visit signup_path
 
