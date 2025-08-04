@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
   allow_unauthenticated_access only: %i[ new create login ]
   before_action :deny_access_if_authenticated, only: %i[ new create login ]
-  
+
   def show
     @user = User.find(params[:id])
   end

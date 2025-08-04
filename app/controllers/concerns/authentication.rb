@@ -27,9 +27,9 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to login_path, alert: "An error has occurred, please log in."
+      redirect_to login_path, alert: "Please log in first."
     end
-    
+
     def find_session_by_cookie
       Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
     end
