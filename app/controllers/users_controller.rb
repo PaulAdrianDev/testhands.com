@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create login ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
-
+  allow_unauthenticated_access only: %i[ new create login ]
+  before_action :deny_access_if_authenticated, only: %i[ new create login ]
+  
   def show
     @user = User.find(params[:id])
   end
@@ -46,5 +47,9 @@ class UsersController < ApplicationController
 
     params_needed.each { |par| return true if user_params[par].blank? }
     false
+  end
+
+  def deny_access_if_authenticated
+    return redirect_to root_path if authenticated?
   end
 end

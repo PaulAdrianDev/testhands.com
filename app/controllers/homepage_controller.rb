@@ -1,6 +1,6 @@
 class HomepageController < ApplicationController
   allow_unauthenticated_access
   def index
-    @user = Session.find_by(id: cookies.signed[:session_id]).user
+    @user = find_session_by_cookie.user
   end
 end
