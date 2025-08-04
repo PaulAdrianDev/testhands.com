@@ -130,5 +130,14 @@ RSpec.describe User, type: :model do
         expect(user.errors[:password]).to include("is too short (minimum is 8 characters)")
       end
     end
+
+    context "is more than 72 characters" do
+      let(:password){ "01234567890123456789012345678901234567890123456789012345678901234567890123" }
+
+      it "is invalid" do
+        expect(user).to be_invalid
+        expect(user.errors[:password]).to include("is too long (maximum is 72 characters)")
+      end
+    end
   end
 end
