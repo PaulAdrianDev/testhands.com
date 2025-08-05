@@ -1,9 +1,9 @@
 <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
 
-<h1>Sign Up Page</h1>
+<section>
+  <h1>Sign Up</h1>
 
-<%= render 'signup_form' %>
-<br>
-
-<%= link_to "Log In", login_path %>
+  <%= render 'signup_form' %>
+  <p>Already have an account? <%= link_to "Log in.", login_path %></p>
+</section>

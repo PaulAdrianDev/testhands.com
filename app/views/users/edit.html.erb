@@ -3,11 +3,13 @@
   <h1 class="mb-3">Change your details:</h1>
   <%= form_with model: @user, url: user_path(@user) do |form| %>
     <div class="mb-3">
-      <%= form.label :username, "Username:", class: "me-2 fs-4" %>
+      <%= form.label :username, "Username:", class: "fs-4" %>
+      <br>
       <%= form.text_field :username, placeholder: "Insert new username", value: @user.username, class: "px-2 rounded-2 fs-4" %>
     </div>
-    <div>
-      <%= form.label :email_address, "Email Address:", class: "me-2 fs-4" %>
+    <div class="mb-3">
+      <%= form.label :email_address, "Email Address:", class: "fs-4" %>
+      <br>
       <%= form.email_field :email_address, placeholder: "Insert new email", value: @user.email_address, class: "px-2 rounded-2 fs-4" %>    
     </div>
     <%= render 'shared/form_errors' %>
