@@ -1,0 +1,8 @@
+<%= form_with model: @user, url: users_path, method: :post do |form| %>
+  <%= form.text_field :username, required: true, autocomplete: "username", placeholder: "Enter your username" %><br>
+  <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: "Enter your email address" %><br>
+  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
+  <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Confirm your password", maxlength: 72 %><br>
+  <%= render 'shared/form_errors' %>
+  <%= form.submit "Sign Up" %>
+<% end %>

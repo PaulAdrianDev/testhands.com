@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
   allow_unauthenticated_access only: %i[ new create login ]
   before_action :deny_access_if_authenticated, only: %i[ new create login ]
+  before_action :set_user, only: %i[ show edit update ]
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -31,6 +31,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update(user_params) 
+      redirect_to @user, notice: "Username changed successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -40,6 +45,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email_address, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
   def any_information_is_missing?

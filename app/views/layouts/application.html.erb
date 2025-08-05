@@ -23,9 +23,9 @@
   </head>
 
   <body>
-    <%= render 'shared/alert' if alert %>
-    <%= render 'shared/notice' if notice %>
     <div class="container">
+      <%= render 'shared/alert' if alert %>
+      <%= render 'shared/notice' if notice %>
       <%= render 'shared/navbar' %>
       <%= yield %>
     </div>

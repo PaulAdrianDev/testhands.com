@@ -1,0 +1,10 @@
+<% if @user.errors.any? %>
+  <div class="bg-danger text-white p-3 rounded-2 mt-2 mb-2 fs-5">
+    <h2><%= pluralize(@user.errors.count, "error") %> occurred:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
