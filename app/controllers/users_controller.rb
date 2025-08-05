@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "Username changed successfully."
+      redirect_to @user, notice: "Details changed successfully."
     else
       render :edit, status: :unprocessable_entity
     end
