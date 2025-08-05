@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_134433) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_05_135116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,6 +26,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_134433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_board_types_on_name", unique: true
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.integer "extra_deck_summons", null: false
+    t.integer "hand_summons", null: false
+    t.integer "gy_banishment_summons", null: false
+    t.bigint "deck_id", null: false
+    t.bigint "board_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_type_id"], name: "index_boards_on_board_type_id"
+    t.index ["deck_id"], name: "index_boards_on_deck_id"
+  end
+
+  create_table "deck_archetypes", force: :cascade do |t|
+    t.bigint "deck_id", null: false
+    t.bigint "archetype_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["archetype_id"], name: "index_deck_archetypes_on_archetype_id"
+    t.index ["deck_id"], name: "index_deck_archetypes_on_deck_id"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -56,6 +77,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_134433) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "boards", "board_types"
+  add_foreign_key "boards", "decks"
+  add_foreign_key "deck_archetypes", "archetypes"
+  add_foreign_key "deck_archetypes", "decks"
   add_foreign_key "decks", "users"
   add_foreign_key "sessions", "users"
 end
