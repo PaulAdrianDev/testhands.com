@@ -26,6 +26,6 @@ class SessionsController < ApplicationController
   end
 
   def deny_access_if_authenticated
-    return redirect_to root_path if authenticated?
+    redirect_to root_path if authenticated?
   end
 end

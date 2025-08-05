@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params) 
+    if @user.update(user_params)
       redirect_to @user, notice: "Username changed successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -59,6 +59,6 @@ class UsersController < ApplicationController
   end
 
   def deny_access_if_authenticated
-    return redirect_to root_path if authenticated?
+    redirect_to root_path if authenticated?
   end
 end
