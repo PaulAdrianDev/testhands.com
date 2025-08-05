@@ -11,10 +11,10 @@
         <button type="button" class="btn-close d-block d-md-none" data-bs-dismiss="offcanvas" aria-label="Close" style="justify-self: flex-end"></button>
         <ul class="navbar-nav justify-content-evenly align-items-center flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">How it works</a>
+            <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Support</a>
+            <a class="nav-link" href="#">How It Works</a>
           </li>
           <%= link_to root_path do %>
             <% image_tag "logo.png", class: "nav-logo d-none d-md-block" %>
@@ -24,9 +24,9 @@
           </li>
           <li class="nav-item">
             <% if authenticated? %>
-              <%= link_to "Profile", user_path(@user.id), class: "btn btn-primary fs-4 px-4" %>
+              <%= link_to "Profile", user_path(@user.id), class: "btn btn-primary px-4" %>
             <% else %>
-              <%= link_to "Log In", login_path, class: "btn btn-primary fs-4 px-4" %>
+              <%= link_to "Log In", login_path, class: "btn btn-primary px-4" %>
             <% end %>
           </li>
       </div>

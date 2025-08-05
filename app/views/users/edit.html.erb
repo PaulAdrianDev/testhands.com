@@ -1,16 +1,16 @@
 <section class="container-fluid">
-  <%= link_to "< Back", user_path(@user), class: "btn btn-primary fs-5 mb-2" %>
+  <%= link_to "< Back", user_path(@user), class: "btn btn-primary  mb-2" %>
   <h1 class="mb-3">Change your details:</h1>
   <%= form_with model: @user, url: user_path(@user) do |form| %>
     <div class="mb-3">
-      <%= form.label :username, "Username:", class: "fs-1 me-2" %>
-      <%= form.text_field :username, placeholder: "Insert new username", value: @user.username, class: "fs-1 px-2 rounded-2" %>
+      <%= form.label :username, "Username:", class: "me-2 fs-4" %>
+      <%= form.text_field :username, placeholder: "Insert new username", value: @user.username, class: "px-2 rounded-2 fs-4" %>
     </div>
     <div>
-      <%= form.label :email_address, "Email Address:", class: "fs-1 me-2" %>
-      <%= form.email_field :email_address, placeholder: "Insert new email", value: @user.email_address, class: "fs-1 px-2 rounded-2" %>    
+      <%= form.label :email_address, "Email Address:", class: "me-2 fs-4" %>
+      <%= form.email_field :email_address, placeholder: "Insert new email", value: @user.email_address, class: "px-2 rounded-2 fs-4" %>    
     </div>
     <%= render 'shared/form_errors' %>
-    <%= form.submit "Update", class: "btn btn-success fs-3 ms-2" %>
+    <%= form.submit "Update", class: "btn btn-success ms-2 px-3" %>
   <% end %>
 </section>

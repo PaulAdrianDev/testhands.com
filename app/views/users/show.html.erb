@@ -1,4 +1,4 @@
 <section class="container-fluid">
-  <h1><%= Current.user.username %> <%= link_to edit_user_path(Current.user) do %><i class="bi bi-pencil-fill"></i><% end %></h1>
-  <%= button_to "Log Out", session_path(Current.session), method: :delete, class: "btn btn-danger fs-5" %>
+  <h1><%= Current.user.username %> <%= link_to edit_user_path(Current.user) do %><i class="bi bi-pencil-fill fs-3"></i><% end %></h1>
+  <%= button_to "Log Out", session_path(Current.session), method: :delete, class: "btn btn-danger" %>
 </section>
