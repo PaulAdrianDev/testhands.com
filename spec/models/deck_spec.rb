@@ -10,6 +10,7 @@ RSpec.describe Deck, type: :model do
 
       it "is invalid" do
         expect(deck).to be_invalid
+        expect(deck.errors[:power_level]).to include("is not included in the list")
       end
     end
     
@@ -18,6 +19,7 @@ RSpec.describe Deck, type: :model do
 
       it "is invalid" do
         expect(deck).to be_invalid
+        expect(deck.errors[:power_level]).to include("is not included in the list")
       end
     end
     
@@ -35,6 +37,7 @@ RSpec.describe Deck, type: :model do
 
       it "is invalid" do
         expect(deck).to be_invalid
+        expect(deck.errors[:power_level]).to include("is not included in the list")
       end
     end
 
@@ -43,6 +46,7 @@ RSpec.describe Deck, type: :model do
 
       it "is invalid" do
         expect(deck).to be_invalid
+        expect(deck.errors[:power_level]).to include("is not included in the list")
       end
     end
   end

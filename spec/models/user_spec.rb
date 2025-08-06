@@ -107,7 +107,6 @@ RSpec.describe User, type: :model do
 
       it "is invalid" do
         expect(user).to be_invalid
-
         expect(user.errors[:password]).to include("can't be blank")
       end
     end
@@ -117,7 +116,6 @@ RSpec.describe User, type: :model do
 
       it "is invalid" do
         expect(user).to be_invalid
-
         expect(user.errors[:password]).to include("can't be blank")
       end
     end
