@@ -10,6 +10,7 @@ RSpec.describe Card, type: :model do
       expect(card).to be_valid
     end
   end
+  
   context "when the name" do
     context "is duplicate of another card" do
       

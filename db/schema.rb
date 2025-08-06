@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_111044) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_06_121955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_111044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_archetypes_on_name", unique: true
+  end
+
+  create_table "board_cards", force: :cascade do |t|
+    t.string "position", null: false
+    t.bigint "board_id", null: false
+    t.bigint "card_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_cards_on_board_id"
+    t.index ["card_id"], name: "index_board_cards_on_card_id"
   end
 
   create_table "board_types", force: :cascade do |t|
@@ -87,6 +97,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_111044) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "board_cards", "boards"
+  add_foreign_key "board_cards", "cards"
   add_foreign_key "boards", "board_types"
   add_foreign_key "boards", "decks"
   add_foreign_key "deck_archetypes", "archetypes"
