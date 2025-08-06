@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_135116) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_06_111044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_135116) do
     t.datetime "updated_at", null: false
     t.index ["board_type_id"], name: "index_boards_on_board_type_id"
     t.index ["deck_id"], name: "index_boards_on_deck_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "card_type", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cards_on_name", unique: true
   end
 
   create_table "deck_archetypes", force: :cascade do |t|
