@@ -4,8 +4,8 @@ RSpec.describe BoardCard, type: :model do
   subject(:user) { build(:user) }
   subject(:deck) { build(:deck, user: user)}
   subject(:board_type){ build(:board_type) }
+  subject(:card) { build(:monster_card) }
   let!(:board) { Board.create!(extra_deck_summons: 3, hand_summons: 3, gy_banishment_summons: 3, deck: deck, board_type: board_type) }
-  let!(:card) { MonsterCard.create(name: "Card", description: "Desc", card_type: "dragon") }
 
   context "when the position" do
     context "is not within the allowed values" do

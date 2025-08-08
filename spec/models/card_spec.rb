@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
-  let(:card) { MonsterCard.create(name: name, description: description, card_type: "dragon") }
-  let(:name) { "CardName" }
-  let(:description) { "CardDescription" }
+  subject(:card) { create(:monster_card) }
 
   context "when the data is correct" do
     it "is valid" do
@@ -16,9 +14,9 @@ RSpec.describe Card, type: :model do
       it "is invalid regardless of type" do
         card
 
-        monstercard = MonsterCard.create(name: "CardName", description: "CardDescription2", card_type: "fairy")
-        spellcard = SpellCard.create(name: "CardName", description: "CardDescription2", card_type: "normal")
-        trapcard = TrapCard.create(name: "CardName", description: "CardDescription2", card_type: "normal")
+        monstercard = build(:monster_card)
+        spellcard = build(:spell_card, name: card.name)
+        trapcard = build(:trap_card, name: card.name)
 
         expect(monstercard).to be_invalid
         expect(spellcard).to be_invalid
@@ -31,7 +29,7 @@ RSpec.describe Card, type: :model do
     end
 
     context "is blank" do
-      let(:name) { "" }
+      before { card.name = "" }
 
       it "is invalid" do
         expect(card).to be_invalid
@@ -40,7 +38,7 @@ RSpec.describe Card, type: :model do
     end
 
     context "is nil" do
-      let(:name) { nil }
+      before { card.name = nil }
 
       it "is invalid" do
         expect(card).to be_invalid
@@ -51,7 +49,7 @@ RSpec.describe Card, type: :model do
 
   context "when the description" do
     context "is blank" do
-      let(:description) { "" }
+      before { card.description = "" }
 
       it "is invalid" do
         expect(card).to be_invalid
@@ -60,7 +58,7 @@ RSpec.describe Card, type: :model do
     end
 
     context "is nil" do
-      let(:description) { "" }
+      before { card.description = "" }
 
       it "is invalid" do
         expect(card).to be_invalid
