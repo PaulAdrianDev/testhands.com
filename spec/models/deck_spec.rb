@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Deck, type: :model do
   context "when the power level is" do
     subject(:user) { build(:user) }
-    let(:deck) { Deck.new(power_level: power_level, user: user) }
+    subject(:deck) { build(:deck, user: user)}
 
     context "less than 1" do
-      let!(:power_level) { 0 }
+      before{ deck.power_level = 0 } 
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -15,7 +15,7 @@ RSpec.describe Deck, type: :model do
     end
 
     context "more than 5" do
-      let!(:power_level) { 6 }
+      before{ deck.power_level = 6 } 
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -26,14 +26,14 @@ RSpec.describe Deck, type: :model do
     context "within 1-5" do
       it "is valid" do
         [ 1, 2, 3, 4, 5 ].each do |level|
-          deck = Deck.new(power_level: level, user: user)
+          deck.power_level = level
           expect(deck).to be_valid
         end
       end
     end
 
     context "blank" do
-      let!(:power_level) { "" }
+      before{ deck.power_level = "" } 
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -42,7 +42,7 @@ RSpec.describe Deck, type: :model do
     end
 
     context "nil" do
-      let!(:power_level) { nil }
+      before{ deck.power_level = nil } 
 
       it "is invalid" do
         expect(deck).to be_invalid

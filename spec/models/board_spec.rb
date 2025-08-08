@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Board, type: :model do
   subject(:user) { build(:user) }
-  let(:deck) { Deck.create!(power_level: 1, user: user) }
+  subject(:deck) { build(:deck, user: user)}
   let(:board_type) { BoardType.create!(name: "Board Type") }
 
   let(:extra_deck_summons) { 3 }
