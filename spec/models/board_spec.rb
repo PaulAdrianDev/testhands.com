@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Board, type: :model do
-  subject(:user) { build(:user) }
-  subject(:deck) { build(:deck, user: user)}
-  subject(:board_type){ build(:board_type) }
-  subject(:board){ build(:board, deck: deck, board_type: board_type) }
+  subject(:board){ build(:board) }
 
   context "when extra_deck_summons" do
     context "is less than 0" do

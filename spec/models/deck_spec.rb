@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Deck, type: :model do
   context "when the power level is" do
-    subject(:user) { build(:user) }
-    subject(:deck) { build(:deck, user: user)}
+    subject(:deck) { build(:deck)}
 
     context "less than 1" do
       before{ deck.power_level = 0 } 
