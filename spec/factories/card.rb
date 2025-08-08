@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :card do
+    name { "Monster Card" }
+    description { "Monster Card Description"}
+    card_type { "dragon" }
+    type { "MonsterCard" }
+  end
+
   factory :monster_card do
     name { "Monster Card" }
     description { "Monster Card Description"}
