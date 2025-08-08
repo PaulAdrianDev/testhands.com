@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_06_121955) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_08_143017) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_121955) do
     t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
+  create_table "monster_card_details", force: :cascade do |t|
+    t.string "monster_type", null: false
+    t.string "monster_attribute", null: false
+    t.boolean "isEffect", null: false
+    t.integer "atk", null: false
+    t.integer "def", null: false
+    t.string "level", null: false
+    t.bigint "card_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_monster_card_details_on_card_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip_address"
@@ -104,5 +117,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_06_121955) do
   add_foreign_key "deck_archetypes", "archetypes"
   add_foreign_key "deck_archetypes", "decks"
   add_foreign_key "decks", "users"
+  add_foreign_key "monster_card_details", "cards"
   add_foreign_key "sessions", "users"
 end
