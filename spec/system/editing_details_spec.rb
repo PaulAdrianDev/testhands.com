@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Editing User Details", type: :system do
-  let!(:user) { User.create(username: "SomeUser", email_address: "someone@email.com", password: "password123") }
-
+  subject(:user) { create(:user) }
+  
   before do
     login_and_go_to_edit_details
   end

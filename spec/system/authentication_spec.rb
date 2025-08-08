@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Authentication", type: :system do
   context "when the user" do
     context "logs in" do
-      let!(:user) { User.create(username: "Pablo", email_address: "pablo@email.com", password: "pablo123123") }
+      subject(:user) { create(:user) }
 
       before do
         visit login_path

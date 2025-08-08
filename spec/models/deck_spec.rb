@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Deck, type: :model do
   context "when the power level is" do
-    let!(:user) { User.create(username: "username", email_address: "email_address", password: "password123") }
+    subject(:user) { build(:user) }
     let(:deck) { Deck.new(power_level: power_level, user: user) }
 
     context "less than 1" do
