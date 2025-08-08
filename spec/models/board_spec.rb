@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Board, type: :model do
-  subject(:board){ build(:board) }
+  subject(:board) { build(:board) }
 
   context "when extra_deck_summons" do
     context "is less than 0" do
-      before { board.extra_deck_summons = -2}
+      before { board.extra_deck_summons = -2 }
 
       it "is invalid" do
         expect(board).to be_invalid
@@ -16,7 +16,7 @@ RSpec.describe Board, type: :model do
 
   context "when hand_summons" do
     context "is less than 0" do
-      before { board.hand_summons = -2}
+      before { board.hand_summons = -2 }
 
       it "is invalid" do
         expect(board).to be_invalid
@@ -27,7 +27,7 @@ RSpec.describe Board, type: :model do
 
 context "when gy_banishment_summons" do
   context "is less than 0" do
-      before { board.gy_banishment_summons = -2}
+      before { board.gy_banishment_summons = -2 }
 
       it "is invalid" do
         expect(board).to be_invalid

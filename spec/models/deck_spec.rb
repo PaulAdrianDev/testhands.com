@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Deck, type: :model do
   context "when the power level is" do
-    subject(:deck) { build(:deck)}
+    subject(:deck) { build(:deck) }
 
     context "less than 1" do
-      before{ deck.power_level = 0 } 
+      before { deck.power_level = 0 }
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -14,7 +14,7 @@ RSpec.describe Deck, type: :model do
     end
 
     context "more than 5" do
-      before{ deck.power_level = 6 } 
+      before { deck.power_level = 6 }
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -32,7 +32,7 @@ RSpec.describe Deck, type: :model do
     end
 
     context "blank" do
-      before{ deck.power_level = "" } 
+      before { deck.power_level = "" }
 
       it "is invalid" do
         expect(deck).to be_invalid
@@ -41,7 +41,7 @@ RSpec.describe Deck, type: :model do
     end
 
     context "nil" do
-      before{ deck.power_level = nil } 
+      before { deck.power_level = nil }
 
       it "is invalid" do
         expect(deck).to be_invalid

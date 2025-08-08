@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Archetype, type: :model do
-  subject(:archetype){ build(:archetype) }
+  subject(:archetype) { build(:archetype) }
 
   context "when the name is" do
     context "blank" do

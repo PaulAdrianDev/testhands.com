@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Editing User Details", type: :system do
   subject(:user) { create(:user) }
-  
+
   before do
     login_and_go_to_edit_details
   end
