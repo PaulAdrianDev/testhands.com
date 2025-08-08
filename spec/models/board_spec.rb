@@ -4,24 +4,11 @@ RSpec.describe Board, type: :model do
   subject(:user) { build(:user) }
   subject(:deck) { build(:deck, user: user)}
   subject(:board_type){ build(:board_type) }
-
-  let(:extra_deck_summons) { 3 }
-  let(:hand_summons) { 3 }
-  let(:gy_banishment_summons) { 3 }
-
-  let(:board) do
-    Board.new(
-      extra_deck_summons: extra_deck_summons,
-      hand_summons: hand_summons,
-      gy_banishment_summons: gy_banishment_summons,
-      deck_id: deck.id,
-      board_type_id: board_type.id
-    )
-  end
+  subject(:board){ build(:board, deck: deck, board_type: board_type) }
 
   context "when extra_deck_summons" do
     context "is less than 0" do
-      let(:extra_deck_summons) { -2 }
+      before { board.extra_deck_summons = -2}
 
       it "is invalid" do
         expect(board).to be_invalid
@@ -32,7 +19,7 @@ RSpec.describe Board, type: :model do
 
   context "when hand_summons" do
     context "is less than 0" do
-      let(:hand_summons) { -2 }
+      before { board.hand_summons = -2}
 
       it "is invalid" do
         expect(board).to be_invalid
@@ -43,7 +30,7 @@ RSpec.describe Board, type: :model do
 
 context "when gy_banishment_summons" do
   context "is less than 0" do
-      let(:gy_banishment_summons) { -2 }
+      before { board.gy_banishment_summons = -2}
 
       it "is invalid" do
         expect(board).to be_invalid
