@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Board, type: :model do
   subject(:user) { build(:user) }
   subject(:deck) { build(:deck, user: user)}
-  let(:board_type) { BoardType.create!(name: "Board Type") }
+  subject(:board_type){ build(:board_type) }
 
   let(:extra_deck_summons) { 3 }
   let(:hand_summons) { 3 }

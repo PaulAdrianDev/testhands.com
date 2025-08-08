@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BoardCard, type: :model do
   subject(:user) { build(:user) }
   subject(:deck) { build(:deck, user: user)}
-  let!(:board_type) { BoardType.create!(name: "Board Type") }
+  subject(:board_type){ build(:board_type) }
   let!(:board) { Board.create!(extra_deck_summons: 3, hand_summons: 3, gy_banishment_summons: 3, deck: deck, board_type: board_type) }
   let!(:card) { MonsterCard.create(name: "Card", description: "Desc", card_type: "dragon") }
 
