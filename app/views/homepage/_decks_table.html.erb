@@ -1,0 +1,5 @@
+<div class="mt-4 py-3 decks-table" id="decks-table">
+  <% @archetypes.each do |archetype| %>
+    <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>" onclick="asd(<%= archetype.id %>)"><%= archetype.name %></button>
+  <% end %>
+</div>

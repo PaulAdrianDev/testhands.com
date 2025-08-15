@@ -1,15 +1,21 @@
-$blue: #183B57;
-$primary: $blue;
-$danger: #982929;
+$blue:    #183B57;
+$primary:   $blue;
+$danger:  #982929;
 $success: #2C8112;
 
-$font-family-base: 'Alumni Sans';
+$font-family-base:      'Alumni Sans';
 $font-family-secondary: 'Montserrat';
-$font-size-base: 1.5rem;
+$font-size-base:         1.5rem;
 
 $body-color: #d2d2d2;
 $link-color: #d2d2d2;
 
 $offcanvas-bg-color: #111111;
-$btn-close-color: #fff;
-$nav-link-font-size: 30px;
+$btn-close-color:    #fff;
+$nav-link-font-size:  30px;
+
+$nav-tabs-border-color:             transparent;
+$nav-tabs-link-active-color:        $body-color !default;
+$nav-tabs-link-active-bg:           $primary; 
+$nav-tabs-link-active-border-color: transparent;
+$nav-tabs-link-hover-border-color:  $primary;

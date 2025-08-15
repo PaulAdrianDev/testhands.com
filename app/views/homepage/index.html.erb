@@ -1,5 +1,31 @@
-<button class="btn btn-primary">test</button>
-<button class="btn btn-danger">test</button>
-<button class="btn btn-success">test</button>
+<%= render 'tab_list' %>
+<section class="tab-content" id="homepageTabs">
+  <%= render 'random_board_tab' %>
+  <%= render 'specific_deck_tab' %>
+</section>
 
-<p class="font-secondary">test</p>
+<script>
+  let decks_table = document.getElementById("decks-table");
+  let deck_name_search = document.getElementById("deck-name");
+
+  document.addEventListener("DOMContentLoaded", (event) => {
+    document.getElementById("deck-name").addEventListener("keyup", filter_decks)
+  });
+
+  function asd(q){
+    alert(q);
+  }
+
+  function filter_decks(){
+    let query = deck_name_search.value;
+
+    for(let i = 0; i < decks_table.children.length; i++){
+      let deck = decks_table.children[i];
+
+      if(!deck.innerHTML.toLowerCase().includes(query))
+        deck.style.display = "none";
+      else
+       deck.style.display = "inline-block";
+    }
+  }
+</script>

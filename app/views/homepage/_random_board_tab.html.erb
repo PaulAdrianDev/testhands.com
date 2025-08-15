@@ -1,0 +1,12 @@
+<div class="tab-pane fade show active text-center" id="section1" role="tabpanel">
+  <h1>Duel a Random Deck</h1>
+  <div class="my-5">
+    <label for="random-tier" class="fs-3">Choose your tier:</label><br>
+    <select name="random-tier" id="random-tier" class="fs-4">
+      <% @tiers.each do |tier, description| %>
+        <option value="<%= tier %>"><%= tier.capitalize %> - <%= description %></option>
+      <% end %>
+    </select>
+  </div>
+  <button class="btn btn-primary fs-2 fw-bold px-5 mt-5 rounded-0">GENERATE BOARD</button>
+</div>
