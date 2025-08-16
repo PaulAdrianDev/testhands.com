@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_08_143017) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_16_101407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,7 +39,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_08_143017) do
   end
 
   create_table "boards", force: :cascade do |t|
-    t.integer "extra_deck_summons", null: false
+    t.integer "deck_summons", null: false
     t.integer "hand_summons", null: false
     t.integer "gy_banishment_summons", null: false
     t.bigint "deck_id", null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_08_143017) do
   end
 
   create_table "decks", force: :cascade do |t|
-    t.integer "power_level", null: false
+    t.integer "tier", null: false
     t.text "advice"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
