@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   get "signup", to: "users#new"
   get "login", to: "users#login"
+
+  get "/random", to: "homepage#random"
 end

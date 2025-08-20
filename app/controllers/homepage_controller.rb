@@ -12,4 +12,9 @@ class HomepageController < ApplicationController
     }
     @archetypes = Archetype.all
   end
+
+  def random
+    @ret = User.find(1)
+    render json: @ret
+  end
 end
