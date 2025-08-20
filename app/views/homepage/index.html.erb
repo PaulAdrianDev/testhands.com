@@ -6,31 +6,3 @@
 
 <%= render 'how_it_works_section' %>
 <%= render 'support_section' %>
-
-
-
-<script>
-  let decks_table = document.getElementById("decks-table");
-  let deck_name_search = document.getElementById("deck-name");
-
-  document.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById("deck-name").addEventListener("keyup", filter_decks)
-  });
-
-  function asd(q){
-    alert(q);
-  }
-
-  function filter_decks(){
-    let query = deck_name_search.value;
-
-    for(let i = 0; i < decks_table.children.length; i++){
-      let deck = decks_table.children[i];
-
-      if(!deck.innerHTML.toLowerCase().includes(query))
-        deck.style.display = "none";
-      else
-       deck.style.display = "inline-block";
-    }
-  }
-</script>

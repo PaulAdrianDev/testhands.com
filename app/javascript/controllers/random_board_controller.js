@@ -1,7 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  connect() {
-    this.element.textContent = "Hello World!"
+  open() {
+    alert(this.tier);
+  }
+
+  get tier(){
+    return this.targets.find("tier").value;
   }
 }
