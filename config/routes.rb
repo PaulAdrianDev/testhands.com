@@ -18,5 +18,11 @@ Rails.application.routes.draw do
   get "signup", to: "users#new"
   get "login", to: "users#login"
 
-  get "/random", to: "homepage#random"
+  namespace :api do
+    namespace :v1 do
+      resources :boards do
+        get :random, on: :collection
+      end
+    end
+  end
 end
