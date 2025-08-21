@@ -25,5 +25,9 @@ deck = Deck.create!(advice: "Test advice", tier: 1, user: user)
 deck.archetypes << Archetype.find_by!(name: "Mitsurugi")
 
 board = Board.create!(deck_summons: 2, hand_summons: 2, gy_banishment_summons: 3, deck: deck, board_type: BoardType.find_by!(name: "Full Combo 1"))
-card = TrapCard.create!(name: "Misturugi Great Purification", description:'When your opponent activates a card or effect: Tribute 1 Level 5 or higher Reptile monster; negate that effect, and if you do, destroy that card. You can banish this card from your GY, then target 1 Reptile monster in your GY; Special Summon it, and if you do, Tribute 1 other monster you control. You can only use 1 "Mitsurugi Great Purification" effect per turn, and only once that turn.', card_type: "normal")
+card = TrapCard.create!(name: "Misturugi Great Purification", description:'Mitsurugi Great Purification Description', card_type: "normal")
 board.board_cards.create!(position: "stz2", card: card)
+
+board2 = Board.create!(deck_summons: 1, hand_summons: 4, gy_banishment_summons: 5, deck: deck, board_type: BoardType.find_by!(name: "Through Fuwalos"))
+card2 = SpellCard.create!(name: "Mitsurugi Magatama", description: "Mitsurugi Magatama Description", card_type: "quick-play")
+board2.board_cards.create!(position: "stz3", card: card2)
