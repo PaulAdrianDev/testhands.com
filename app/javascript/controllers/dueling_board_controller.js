@@ -1,61 +1,125 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  close(){
-    let board = this.overlay;
-    board.style.pointerEvents = "none";
-    board.style.opacity = "0";
-  }
-
   open(deck){
-    this.showBoard();
+    // maybe clear session storage first?
+    // sessionStorage.clear();
     console.log(deck);
+    this.openOverlay();
     this.setTitle(deck.archetypes);
-    this.setBoardTypeName("Full Combo 1");
+    this.setBoardType("Full Combo 1");
     this.setUsername(deck.user.username);
-    if(deck.advice)
-      this.addAdvice(deck.advice);
-    else
-      this.removePreviousAdvice();
-
+    this.setAdvice(deck.advice);
     this.addBoardsAndOptions(deck.boards);
   } 
 
   addBoardsAndOptions(boards){
-    let type;
-    let options = this.options;
-    options.innerHTML = ""; // clear past children
-    
+    this.options.innerHTML = ""; // clear past children
+
     boards.forEach((board) =>{
-      type = board.board_type.name;
-
-      let newOption = document.createElement("input");
-      newOption.type = "radio";
-      newOption.id = "board" + board.id;
-      newOption.value = board.id;
-      newOption.name = "board_select";
-      newOption.classList.add("me-2");
-      newOption.style.cursor = "pointer";
-      newOption.style.transform = "scale(1.3)";
-      if(type == "Full Combo 1")
-        newOption.checked = true;
-
-      let newOptionLabel = document.createElement("label");
-      newOptionLabel.for = newOption.id;
-      newOptionLabel.textContent = board.board_type.name;
-
-      let div = document.createElement("div");
-      div.appendChild(newOption);
-      div.appendChild(newOptionLabel);
-
-      options.appendChild(div);
+      this.addOptionFor(board);
+      if(board.board_type.name == "Full Combo 1")
+        this.addCardsFor(board);
     });
   }
 
-  showBoard(){
-    let board = this.overlay;
-    board.style.pointerEvents = "all";
-    board.style.opacity = "1";
+  changeBoard(board_id){
+    let board = JSON.parse(sessionStorage.getItem(board_id));
+    this.setBoardType(board.board_type.name);
+    this.addCardsFor(board);
+  }
+
+  addCardsFor(board){
+    this.removeAllCards();
+    let zones_used = [];
+    
+    board.board_cards.forEach((card_and_position) => {
+      let zone = document.getElementById(card_and_position.position);
+      let card = card_and_position.card;
+
+      let card_image = document.createElement("img");
+      card_image.src = this.element.dataset.cardImageUrl;
+      card_image.setAttribute("data-card-name", card.name);
+      card_image.setAttribute("data-card-description", card.description); 
+      card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) }) // here make an overlay
+
+      zone.appendChild(card_image);
+      zones_used.push(card_and_position.position); 
+    })
+
+    this.addInvisibleCardsToEmptyRows(zones_used);
+  }
+
+  addInvisibleCardsToEmptyRows(zones){ // this is needed because the table td's have set width but no height, if a row doesn't have a single card in it then the whole row becomes height 0
+    let table_rows = this.board.querySelectorAll("tr");
+    let cards_in_row = [false, false, false, false]
+
+    zones.forEach((zone) => {
+      if(zone.includes("emz") || zone == "banishment")
+        cards_in_row[0] = true;
+      else if(zone.includes("mmz") || zone == "field" || zone == "graveyard")
+        cards_in_row[1] = true;
+      else if(zone.includes("stz") || zone == "deck" || zone == "extra-deck")
+        cards_in_row[2] = true;
+      else
+        cards_in_row[3] = true;
+    });
+    
+    let invisible_card = document.createElement("img");
+    invisible_card.src = this.element.dataset.cardImageUrl;
+    invisible_card.style.opacity = 0;
+    invisible_card.style.pointerEvents = "none";
+    
+    for(let i = 0; i < cards_in_row.length; i++)
+      if(cards_in_row[i] == false)
+        table_rows[i].querySelector(".usable-zone").appendChild(invisible_card.cloneNode(false));
+  }
+
+  removeAllCards(){
+    let zones = document.querySelectorAll(".usable-zone");
+
+    zones.forEach((zone) => {
+      while(zone.firstChild)
+        zone.removeChild(zone.lastChild);
+    })
+  }
+
+  openCardDetails(card){
+    console.log(card.getAttribute("data-card-name"));
+    console.log(card.getAttribute("data-card-description"));
+  }
+
+  addOptionFor(board){
+    let newOption = document.createElement("input");
+    newOption.type = "radio";
+    newOption.id = "board" + board.id;
+    newOption.value = board.id;
+    newOption.name = "board_select";
+    newOption.classList.add("me-2");
+    newOption.style.cursor = "pointer";
+    newOption.style.transform = "scale(1.3)";
+    if(board.board_type.name == "Full Combo 1")
+      newOption.checked = true;
+
+    newOption.addEventListener("click", (event) => { this.changeBoard(event.target.id) });
+
+    sessionStorage.setItem(newOption.id, JSON.stringify(board));
+
+    let newOptionLabel = document.createElement("label");
+    newOptionLabel.for = newOption.id;
+    newOptionLabel.textContent = board.board_type.name;
+
+    let div = document.createElement("div");
+    div.appendChild(newOption);
+    div.appendChild(newOptionLabel);
+
+    this.options.appendChild(div);
+  }
+
+  openOverlay(){
+    let overlay = this.overlay;
+    overlay.style.pointerEvents = "all";
+    overlay.style.opacity = "1";
   }
 
   setTitle(archetypes){
@@ -68,7 +132,7 @@ export default class extends Controller {
     this.title.textContent = title;
   }
 
-  setBoardTypeName(name){
+  setBoardType(name){
     this.board_type.textContent = name;
   }
 
@@ -76,9 +140,12 @@ export default class extends Controller {
     this.username.textContent = "- by " + username;
   }
 
-  addAdvice(advice){
-    this.advice_title.textContent = "Creator's Advice:";
-    this.advice.textContent = advice;
+  setAdvice(advice){
+    this.removePreviousAdvice();
+    if(advice){
+      this.advice_title.textContent = "Creator's Advice:";
+      this.advice.textContent = advice;
+    }
   }
 
   removePreviousAdvice(){
@@ -94,6 +161,12 @@ export default class extends Controller {
     else
       outerDiv.style.transform = "scaleY(-1)";
   } 
+
+  close(){
+    let board = this.overlay;
+    board.style.pointerEvents = "none";
+    board.style.opacity = "0";
+  }
 
   get overlay(){
     return this.targets.find("overlay");

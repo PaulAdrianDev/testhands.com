@@ -1,5 +1,5 @@
 class CardSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :card_type, :type
+  attributes :id, :name, :description
   
   has_many :board_cards
 end
