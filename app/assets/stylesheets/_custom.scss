@@ -63,6 +63,37 @@ input, select{
   background-color: #171717;
 }
 
+#dueling-overlay{
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.2s;
+}
+
+p[data-dueling-board-target="username"]{
+  color:rgb(117, 117, 117);
+  font-size: 1.1rem;
+}
+
+#dueling-board{
+  width:100%;
+  border-spacing: 5px;
+  border-collapse: separate;
+  table-layout: fixed;
+}
+
+#dueling-board td{
+  width:14.2%;
+}
+
+#dueling-board td img{
+  width:100%;
+}
+
+#dueling-board .usable-zone{
+  background-color: transparent;
+  border:1px solid gray;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;
@@ -71,6 +102,7 @@ input, select{
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(94, 118, 161);
+  background-color: #111111;
   border-radius: 10px;
 }
 

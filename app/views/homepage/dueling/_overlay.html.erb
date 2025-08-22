@@ -1,0 +1,16 @@
+<section id="dueling-overlay" style="position: absolute; top:0; left:0; width:100%; min-height:100%;" data-controller="dueling-board" data-dueling-board-target="overlay">
+  <button class="btn btn-danger" data-action="click->dueling-board#close">< Back</button>
+  <h1 data-dueling-board-target="title" class="text-center m-0 font-secondary fw-light"></h1>
+  <h4 data-dueling-board-target="board-type" class="text-center m-0 lh-1 font-secondary fw-light color-gray"></h4>
+  <p data-dueling-board-target="username" class="text-center m-0 font-secondary"></p>
+  <div class="container-fluid row mt-2">
+    <div class="col-lg-9 col-12 border-end border-primary border-3">
+      <%= render "homepage/dueling/board" %>
+    </div>
+    <div class="col-lg-3 col-12">
+      <%= render "homepage/dueling/options" %>
+    </div>
+  </div>
+  <h1 class="mt-3 mb-0" data-dueling-board-target="advice-title"></h1>
+  <p data-dueling-board-target="advice"></p>
+</section>

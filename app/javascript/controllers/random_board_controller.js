@@ -1,8 +1,48 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  open() {
-    alert(this.tier);
+  async open() {
+    this.disableButton();
+    await this.openDuelingBoard();
+    this.enableButton();
+  }
+
+  async openDuelingBoard(){
+    let response = await this.getDeck();
+    if( response == null ){
+      alert("An error occurred, please report this to us.");
+      return null;
+    }
+    // openboard
+    const dueling_board = document.getElementById("dueling-overlay");
+    const boardController = this.application.getControllerForElementAndIdentifier(dueling_board, "dueling-board");
+    boardController.open(response.deck);
+  }
+
+  async getDeck(){
+    let data = null;
+    try{
+      let res = await fetch("/api/v1/decks/random");
+      data = await res.json();
+    }
+    catch(e){
+      return null;
+    }
+    return data;
+  }
+
+  disableButton(){
+    let btn = document.getElementById("generate-board-btn");
+    btn.style.pointerEvents = "none";
+    btn.style.backgroundColor = "#586066";
+    btn.style.cursor = "wait";
+  }
+
+  enableButton(){
+    let btn = document.getElementById("generate-board-btn");
+    btn.style.pointerEvents = "all";
+    btn.style.backgroundColor = "var(--bs-btn-bg)";
+    btn.style.cursor = "pointer";
   }
 
   get tier(){
