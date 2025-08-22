@@ -74,6 +74,10 @@ p[data-dueling-board-target="username"]{
   font-size: 1.1rem;
 }
 
+div[data-dueling-board-target="board-outer-div"]{
+  transition: transform 0.4s;
+}
+
 #dueling-board{
   width:100%;
   border-spacing: 5px;
@@ -92,6 +96,10 @@ p[data-dueling-board-target="username"]{
 #dueling-board .usable-zone{
   background-color: transparent;
   border:1px solid gray;
+}
+
+.border-lg-left{
+  border-left: none;
 }
 
 /* width */
@@ -116,5 +124,9 @@ p[data-dueling-board-target="username"]{
   section{
     padding-left:40px !important;
     padding-right:40px !important;
+  }
+
+  .border-lg-left{
+    border-left: 3px solid $primary;
   }
 }

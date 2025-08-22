@@ -4,10 +4,11 @@
   <h4 data-dueling-board-target="board-type" class="text-center m-0 lh-1 font-secondary fw-light color-gray"></h4>
   <p data-dueling-board-target="username" class="text-center m-0 font-secondary"></p>
   <div class="container-fluid row mt-2">
-    <div class="col-lg-9 col-12 border-end border-primary border-3">
+    <div class="col-lg-9 col-12" data-dueling-board-target="board-outer-div">
+      <button class="btn btn-primary position-absolute rounded-4" data-action="click->dueling-board#flip"><i class="bi bi-arrow-down-up align-middle"></i></button>
       <%= render "homepage/dueling/board" %>
     </div>
-    <div class="col-lg-3 col-12">
+    <div class="col-lg-3 col-12 mt-3 mt-lg-0 border-lg-left">
       <%= render "homepage/dueling/options" %>
     </div>
   </div>

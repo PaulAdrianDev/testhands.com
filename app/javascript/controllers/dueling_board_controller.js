@@ -17,8 +17,37 @@ export default class extends Controller {
       this.addAdvice(deck.advice);
     else
       this.removePreviousAdvice();
+
+    this.addBoardsAndOptions(deck.boards);
   } 
 
+  addBoardsAndOptions(boards){
+    let type;
+    let options = this.options;
+    boards.forEach((board) =>{
+      type = board.board_type.name;
+
+      let newOption = document.createElement("input");
+      newOption.type = "radio";
+      newOption.id = "board" + board.id;
+      newOption.value = board.id;
+      newOption.name = "board_select";
+      newOption.classList.add("me-2");
+      newOption.style.cursor = "pointer";
+      if(type == "Full Combo 1")
+        newOption.checked = true;
+
+      let newOptionLabel = document.createElement("label");
+      newOptionLabel.for = newOption.id;
+      newOptionLabel.textContent = board.board_type.name;
+
+      let div = document.createElement("div");
+      div.appendChild(newOption);
+      div.appendChild(newOptionLabel);
+
+      options.appendChild(div);
+    });
+  }
 
   showBoard(){
     let board = this.overlay;
@@ -54,6 +83,15 @@ export default class extends Controller {
     this.advice.textContent = "";
   }
 
+  flip(){
+    let outerDiv = this.targets.find("board-outer-div");
+    
+    if(outerDiv.style.transform == "scaleY(-1)")
+      outerDiv.style.transform = "scaleY(1)";
+    else
+      outerDiv.style.transform = "scaleY(-1)";
+  } 
+
   get overlay(){
     return this.targets.find("overlay");
   }
@@ -73,7 +111,17 @@ export default class extends Controller {
   get advice_title(){
     return this.targets.find("advice-title");
   }
+
   get advice(){
     return this.targets.find("advice");
   }
+
+  get options(){
+    return this.targets.find("options");
+  }
+
+  get board(){
+    return this.targets.find("board");
+  }
+
 }
