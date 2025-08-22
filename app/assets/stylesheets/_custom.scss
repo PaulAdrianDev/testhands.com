@@ -91,11 +91,18 @@ div[data-dueling-board-target="board-outer-div"]{
 
 #dueling-board td img{
   width:100%;
+  cursor:pointer;
+  transition: transform 0.2s;
+}
+
+#dueling-board .usable-zone:has(> img:hover){
+  transform: scale(1.015);
 }
 
 #dueling-board .usable-zone{
   background-color: transparent;
   border:1px solid gray;
+  transition: transform 0.2s;
 }
 
 .border-lg-left{

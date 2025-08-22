@@ -24,6 +24,8 @@ export default class extends Controller {
   addBoardsAndOptions(boards){
     let type;
     let options = this.options;
+    options.innerHTML = ""; // clear past children
+    
     boards.forEach((board) =>{
       type = board.board_type.name;
 
@@ -34,6 +36,7 @@ export default class extends Controller {
       newOption.name = "board_select";
       newOption.classList.add("me-2");
       newOption.style.cursor = "pointer";
+      newOption.style.transform = "scale(1.3)";
       if(type == "Full Combo 1")
         newOption.checked = true;
 
@@ -85,7 +88,7 @@ export default class extends Controller {
 
   flip(){
     let outerDiv = this.targets.find("board-outer-div");
-    
+
     if(outerDiv.style.transform == "scaleY(-1)")
       outerDiv.style.transform = "scaleY(1)";
     else
