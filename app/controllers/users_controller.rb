@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update ]
 
   def show
+    @decks = Deck.includes(:archetypes).where(user: @user)
   end
 
   def new

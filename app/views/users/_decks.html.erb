@@ -1,0 +1,7 @@
+<% if @decks.empty? %>
+   <h1>You don't have any decks yet.</h1> 
+<% else %>
+  <% @decks.each do |deck| %>
+    <%= deck.inspect %>
+  <% end %>
+<% end %>
