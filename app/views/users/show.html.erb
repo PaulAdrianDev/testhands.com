@@ -3,7 +3,12 @@
   <%= button_to "Log Out", session_path(Current.session), method: :delete, class: "btn btn-danger" %>
 </section>
 
-<section>
-  <h1>Your Decks</h1>
-  <%= render 'decks' %>
+<section class="text-center">
+  <h1>Your Decks <%= link_to "+ Add Deck", new_user_deck_path(@user), class: "btn btn-lg btn-primary" %>
+</h1>
+  <div class="my-3">
+    <label for="user-deck-search">Search by Name (add stimulus js to thi):</label>
+    <input type="text" id="user-deck-search" placeholder="e.g. Ryzeal">
+  </div>
+  <%= render 'decks_table' %>
 </section>

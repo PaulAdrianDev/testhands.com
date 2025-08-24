@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "homepage#index"
   resources :users, only: %i[ create edit update show destroy ] do
-    resources :decks
+    resources :decks, controller: 'users/decks'
   end
 
   get "signup", to: "users#new"
