@@ -1,4 +1,4 @@
-<div class="mt-4 py-3 decks-table" id="decks-table" data-specific-deck-target="decks_table">
+<div class="mt-4 py-3 decks-table" id="decks-table" data-deck-search-target="decks_table">
   <% @archetypes.each do |archetype| %>
     <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>" data-action="specific-deck#open"><%= archetype.name %></button>
   <% end %>
