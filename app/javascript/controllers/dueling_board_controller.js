@@ -176,10 +176,13 @@ export default class extends Controller {
     deck.archetypes.forEach((archetype) => {
       title += archetype.name;
     });
-
+    title += ` - by ${deck.user.username}`;
     let new_deck = document.createElement("p");
     new_deck.textContent = title;
     new_deck.setAttribute("data-deck-id", deck.id);
+    new_deck.classList.add("deck-history-deck");
+
+    deck_history.appendChild(new_deck);
   }
 
   get overlay(){

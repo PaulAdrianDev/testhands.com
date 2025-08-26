@@ -8,7 +8,7 @@ module Api
         query = query.where(tier: params[:tier].to_i) if params[:tier].present? && params[:tier] != "any"
 
         count = query.count
-        deck = query.offset(rand(count)).first
+        deck = query.offset(rand(count)).first # maybe i will make it so that it returns more results and puts them in sessionstorage
 
         render json: deck, include: [
           'user', 

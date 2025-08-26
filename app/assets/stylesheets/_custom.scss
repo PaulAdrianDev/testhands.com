@@ -109,6 +109,17 @@ div[data-dueling-board-target="board-outer-div"]{
   border-left: none;
 }
 
+.deck-history-deck{
+  cursor:pointer;
+  transition:color 0.3s;
+  padding:5px;
+  margin-bottom:0;
+}
+
+.deck-history-deck:hover{
+  color: $primary;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;

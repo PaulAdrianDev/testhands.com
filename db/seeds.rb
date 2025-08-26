@@ -55,3 +55,4 @@ board.board_cards.create!(position: "mmz3", card: card)
 board.board_cards.create!(position: "hand2", card: veiler)
 
 # RYZEAL END
+
