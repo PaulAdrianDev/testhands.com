@@ -2,16 +2,18 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   open(deck){
-    // maybe clear session storage first?
-    // sessionStorage.clear();
     console.log(deck);
     this.openOverlay();
+    this.setUpOverlay(deck);
+  } 
+  setUpOverlay(deck){
     this.setTitle(deck.archetypes);
     this.setBoardType("Full Combo 1");
     this.setUsername(deck.user.username);
     this.setAdvice(deck.advice);
     this.addBoardsAndOptions(deck.boards);
-  } 
+    this.addToDeckHistory(deck);
+  }
 
   addBoardsAndOptions(boards){
     this.options.innerHTML = ""; // clear past children
@@ -168,6 +170,18 @@ export default class extends Controller {
     board.style.opacity = "0";
   }
 
+  addToDeckHistory(deck){
+    let deck_history = this.deck_history;
+    let title = "";
+    deck.archetypes.forEach((archetype) => {
+      title += archetype.name;
+    });
+
+    let new_deck = document.createElement("p");
+    new_deck.textContent = title;
+    new_deck.setAttribute("data-deck-id", deck.id);
+  }
+
   get overlay(){
     return this.targets.find("overlay");
   }
@@ -199,5 +213,8 @@ export default class extends Controller {
   get board(){
     return this.targets.find("board");
   }
-
+  
+  get deck_history(){
+    return this.targets.find("deck-history");
+  }
 }

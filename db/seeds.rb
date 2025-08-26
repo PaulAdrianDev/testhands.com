@@ -21,13 +21,37 @@ end
 # Creating a full deck for testing 
 user = User.create!(username: "testhands.com", email_address: "1@1.1", password: "aaaaaaaa")
 
-deck = Deck.create!(advice: "Test advice", tier: 1, user: user)
+deck = Deck.create!(advice: "Mitsurugi Test advice", tier: 1, user: user)
 deck.archetypes << Archetype.find_by!(name: "Mitsurugi")
 
+# MITSURUGI START
 board = Board.create!(deck_summons: 2, hand_summons: 2, gy_banishment_summons: 3, deck: deck, board_type: BoardType.find_by!(name: "Full Combo 1"))
 card = TrapCard.create!(name: "Misturugi Great Purification", description:'Mitsurugi Great Purification Description', card_type: "normal")
 board.board_cards.create!(position: "stz2", card: card)
+card = MonsterCard.create!(name: "Ame no Murakumo no Mitsurugi", description: "Murakumo Description", card_type: "reptile")
+board.board_cards.create!(position: "mmz1", card: card)
+card = MonsterCard.create!(name: "Dyna Mondo", description: "Dyna Mondo Description", card_type: "cyberse")
+board.board_cards.create!(position: "emz1", card: card)
+veiler = MonsterCard.create!(name: "Effect Veiler", description: "Effect Veiler Description", card_type: "spellcaster")
+board.board_cards.create!(position: "hand1", card: veiler)
 
 board2 = Board.create!(deck_summons: 1, hand_summons: 4, gy_banishment_summons: 5, deck: deck, board_type: BoardType.find_by!(name: "Through Fuwalos"))
 card2 = SpellCard.create!(name: "Mitsurugi Magatama", description: "Mitsurugi Magatama Description", card_type: "quick-play")
 board2.board_cards.create!(position: "stz3", card: card2)
+
+# MITSURUGI END
+
+# RYZEAL START
+deck = Deck.create!(advice: "Ryzeal Test advice", tier: 2, user: user)
+deck.archetypes << Archetype.find_by!(name: "Ryzeal")
+
+board = Board.create!(deck_summons: 1, hand_summons: 5, gy_banishment_summons: 0, deck: deck, board_type: BoardType.find_by!(name: "Full Combo 1"))
+card = MonsterCard.create!(name: "Ryzeal Detonator", description:'Detonator Description', card_type: "pyro")
+board.board_cards.create!(position: "mmz1", card: card)
+card = SpellCard.create!(name: "Ryzeal Cross", description: "Cross Description", card_type: "field")
+board.board_cards.create!(position: "field", card: card)
+card = MonsterCard.create!(name: "Ryzeal Duo Drive", description: "Duo Drive Description", card_type: "pyro")
+board.board_cards.create!(position: "mmz3", card: card)
+board.board_cards.create!(position: "hand2", card: veiler)
+
+# RYZEAL END

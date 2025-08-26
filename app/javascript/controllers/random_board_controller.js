@@ -21,8 +21,10 @@ export default class extends Controller {
 
   async getDeck(){
     let data = null;
+    let tier = this.tier;
+
     try{
-      let res = await fetch("/api/v1/decks/random");
+      let res = await fetch(`/api/v1/decks/random?tier=${tier}`);
       data = await res.json();
     }
     catch(e){
