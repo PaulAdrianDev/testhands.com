@@ -4,11 +4,12 @@ export default class extends Controller {
   connect(){
     window.deck_history = {};
     window.current_deck_id = -1;
+    window.consistent_information = {}; // tier, deck, user
   }
 
-  open(deck){
-    console.log(deck);
+  open(deck, info){
     deck_history[deck.id] = deck;
+    consistent_information = info;
     this.openOverlay();
     this.setUpOverlay(deck);
   } 
@@ -136,6 +137,7 @@ export default class extends Controller {
   }
 
   openOverlay(){
+    window.scrollTo(0,0);
     let overlay = this.overlay;
     overlay.style.pointerEvents = "all";
     overlay.style.opacity = "1";
@@ -208,8 +210,14 @@ export default class extends Controller {
       this.setUpOverlay(deck_history[deck_id]);
   }
 
-  newDeck(){
-    
+  async newDeck(){
+    switch(Object.keys(consistent_information)[0]){
+      case "tier":
+        const random_board = document.getElementById("random-board");
+        const randomController = this.application.getControllerForElementAndIdentifier(random_board, "random-board");
+        randomController.open(consistent_information.tier);
+      break;
+    }
   }
 
   get overlay(){
