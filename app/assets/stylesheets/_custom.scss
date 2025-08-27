@@ -109,14 +109,14 @@ div[data-dueling-board-target="board-outer-div"]{
   border-left: none;
 }
 
-.deck-history-deck{
+.data-deck-history-deck{
   cursor:pointer;
   transition:color 0.3s;
   padding:5px;
   margin-bottom:0;
 }
 
-.deck-history-deck:hover{
+.data-deck-history-deck:hover{
   color: $primary;
 }
 
@@ -128,7 +128,7 @@ div[data-dueling-board-target="card-details"]{
   width:94%;
   border:2px solid $primary;
   cursor:pointer;
-  transition: opacity 0.2s, transform 0s;
+  transition: opacity 0.2s;
   opacity:0;
   pointer-events: none;
   z-index: 2;

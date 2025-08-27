@@ -1,12 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  connect(){
+    window.deck_history = {};
+    window.current_deck_id = -1;
+  }
+
   open(deck){
     console.log(deck);
+    deck_history[deck.id] = deck;
     this.openOverlay();
     this.setUpOverlay(deck);
   } 
   setUpOverlay(deck){
+    current_deck_id = deck.id;
+    this.closeCardDetails();
     this.setTitle(deck.archetypes);
     this.setBoardType("Full Combo 1");
     this.setUsername(deck.user.username);
@@ -180,7 +188,6 @@ export default class extends Controller {
   }
 
   addToDeckHistory(deck){
-    let deck_history = this.deck_history;
     let title = "";
     deck.archetypes.forEach((archetype) => {
       title += archetype.name;
@@ -189,9 +196,16 @@ export default class extends Controller {
     let new_deck = document.createElement("p");
     new_deck.textContent = title;
     new_deck.setAttribute("data-deck-id", deck.id);
-    new_deck.classList.add("deck-history-deck");
+    new_deck.classList.add("data-deck-history-deck");
+    new_deck.addEventListener("click", (event) => { this.rematchDeck(event.target.getAttribute("data-deck-id")) })
 
-    deck_history.appendChild(new_deck);
+    this.deck_history_div.appendChild(new_deck);
+  }
+
+  rematchDeck(deck_id){
+    window.scrollTo(0, 0);
+    if(current_deck_id != deck_id)
+      this.setUpOverlay(deck_history[deck_id]);
   }
 
   get overlay(){
@@ -226,7 +240,7 @@ export default class extends Controller {
     return this.targets.find("board");
   }
   
-  get deck_history(){
+  get deck_history_div(){
     return this.targets.find("deck-history");
   }
 
