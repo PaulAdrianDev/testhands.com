@@ -208,6 +208,10 @@ export default class extends Controller {
       this.setUpOverlay(deck_history[deck_id]);
   }
 
+  newDeck(){
+    
+  }
+
   get overlay(){
     return this.targets.find("overlay");
   }
