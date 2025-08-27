@@ -4,11 +4,14 @@ module Api
       allow_unauthenticated_access
 
       def random
-        query = Deck.includes(:user, :archetypes, boards: [:board_type, { board_cards: :card }])
-        query = query.where(tier: params[:tier].to_i) if params[:tier].present? && params[:tier] != "any"
-
-        count = query.count
-        deck = query.offset(rand(count)).first # maybe i will make it so that it returns more results and puts them in sessionstorage
+        deck = Deck
+          .with_includes
+          .with_tier(params[:tier])
+          .sample # maybe i will make it so that it returns more results and puts them in sessionstorage
+        
+        return render json: {
+          "error": "No Deck found."
+        } if deck.nil?
 
         render json: deck, include: [
           'user', 

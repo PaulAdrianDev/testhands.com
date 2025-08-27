@@ -13,6 +13,10 @@ export default class extends Controller {
       alert("An error occurred, please report this to us.");
       return null;
     }
+    else if( response.error ){
+      alert(response.error);
+      return null;
+    }
     // openboard
     const dueling_board = document.getElementById("dueling-overlay");
     const boardController = this.application.getControllerForElementAndIdentifier(dueling_board, "dueling-board");
@@ -30,6 +34,7 @@ export default class extends Controller {
     catch(e){
       return null;
     }
+    
     return data;
   }
 
