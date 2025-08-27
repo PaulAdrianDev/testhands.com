@@ -87,8 +87,17 @@ export default class extends Controller {
   }
 
   openCardDetails(card){
-    console.log(card.getAttribute("data-card-name"));
-    console.log(card.getAttribute("data-card-description"));
+    this.card_details.style.pointerEvents = "all";
+    this.card_details.style.opacity = "1";
+    this.card_details.style.top = `${card.getBoundingClientRect().bottom - this.board.getBoundingClientRect().top}px`;
+    
+    this.card_details_name.textContent = card.getAttribute("data-card-name");
+    this.card_details_description.textContent = card.getAttribute("data-card-description");
+  }
+
+  closeCardDetails(){
+    this.card_details.style.opacity = "0";
+    this.card_details.style.pointerEvents = "none";
   }
 
   addOptionFor(board){
@@ -219,5 +228,17 @@ export default class extends Controller {
   
   get deck_history(){
     return this.targets.find("deck-history");
+  }
+
+  get card_details(){
+    return this.targets.find("card-details");
+  }
+
+  get card_details_name(){
+    return this.targets.find("card-details-name");
+  }
+
+  get card_details_description(){
+    return this.targets.find("card-details-description");
   }
 }
