@@ -30,9 +30,14 @@ export default class extends Controller {
 
   async getDeck(tier){
     let data = null;
+    let url = `/api/v1/decks/random?tier=${tier}`;
+    let curr_deck_id = parseInt(sessionStorage.getItem("current_deck_id"), 10);
+
+    if(Number.isInteger(curr_deck_id))
+      url = `${url}&except=${curr_deck_id}`; // in future if i want to exclude many previously fought decks make it here
 
     try{
-      let res = await fetch(`/api/v1/decks/random?tier=${tier}`);
+      let res = await fetch(url);
       data = await res.json();
     }
     catch(e){

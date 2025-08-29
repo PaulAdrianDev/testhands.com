@@ -4,7 +4,9 @@ module Api
       allow_unauthenticated_access
 
       def random
-        ids = Deck.with_tier(params[:tier]).pluck(:id)
+        except_id = params[:except].present? ? params[:except].to_i : -1
+        ids = Deck.with_tier(params[:tier]).where.not(id: except_id).pluck(:id)
+
         return render json: { error: "No Deck found." } if ids.empty?
 
         random_id = ids.sample

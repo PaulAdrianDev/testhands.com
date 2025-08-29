@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect(){
     window.deck_history = {};
-    window.current_deck_id = -1;
+    sessionStorage.setItem("current_deck_id", 0);
     window.consistent_information = {}; // tier, deck, user
   }
 
@@ -14,7 +14,7 @@ export default class extends Controller {
     this.setUpOverlay(deck);
   } 
   setUpOverlay(deck){
-    current_deck_id = deck.id;
+    sessionStorage.setItem("current_deck_id", deck.id);
     this.closeCardDetails();
     this.setTitle(deck.archetypes);
     this.setBoardType("Full Combo 1");
@@ -137,7 +137,7 @@ export default class extends Controller {
   }
 
   openOverlay(){
-    window.scrollTo(0,0);
+    document.getElementById("dueling-overlay").scrollIntoView();
     let overlay = this.overlay;
     overlay.style.pointerEvents = "all";
     overlay.style.opacity = "1";
@@ -184,9 +184,10 @@ export default class extends Controller {
   } 
 
   close(){
-    let board = this.overlay;
-    board.style.pointerEvents = "none";
-    board.style.opacity = "0";
+    sessionStorage.setItem("current_deck_id", 0);
+    let overlay = this.overlay;
+    overlay.style.pointerEvents = "none";
+    overlay.style.opacity = "0";
   }
 
   addToDeckHistory(deck){
@@ -206,18 +207,22 @@ export default class extends Controller {
 
   rematchDeck(deck_id){
     window.scrollTo(0, 0);
-    if(current_deck_id != deck_id)
+    if(current_deck_id() != deck_id)
       this.setUpOverlay(deck_history[deck_id]);
   }
 
   async newDeck(){
     switch(Object.keys(consistent_information)[0]){
       case "tier":
-        const random_board = document.getElementById("random-board");
-        const randomController = this.application.getControllerForElementAndIdentifier(random_board, "random-board");
+        const random_deck = document.getElementById("random-deck-tab");
+        const randomController = this.application.getControllerForElementAndIdentifier(random_deck, "random-board");
         randomController.open(consistent_information.tier);
       break;
     }
+  }
+
+  current_deck_id(){
+    return sessionStorage.getItem("current_deck_id");
   }
 
   get overlay(){
