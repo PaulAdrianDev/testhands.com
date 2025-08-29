@@ -82,8 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_16_101407) do
     t.string "monster_type", null: false
     t.string "monster_attribute", null: false
     t.boolean "is_effect", null: false
-    t.integer "atk", null: false
-    t.integer "def", null: false
+    t.integer "atk"
+    t.integer "def"
     t.string "level", null: false
     t.bigint "card_id", null: false
     t.datetime "created_at", null: false
