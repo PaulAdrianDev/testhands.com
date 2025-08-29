@@ -81,7 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_16_101407) do
   create_table "monster_card_details", force: :cascade do |t|
     t.string "monster_type", null: false
     t.string "monster_attribute", null: false
-    t.boolean "isEffect", null: false
+    t.boolean "is_effect", null: false
     t.integer "atk", null: false
     t.integer "def", null: false
     t.string "level", null: false
