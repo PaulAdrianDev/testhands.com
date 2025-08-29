@@ -6,7 +6,7 @@ class CreateMonsterCardDetails < ActiveRecord::Migration[8.0]
       t.boolean :isEffect, null: false
       t.integer :atk
       t.integer :def
-      t.string :level, null: false
+      t.string :level
       t.references :card, null: false, foreign_key: true
 
       t.timestamps
