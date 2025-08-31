@@ -10,7 +10,7 @@ export default class extends Controller {
   open(deck, info){
     deck_history[deck.id] = deck;
     consistent_information = info;
-    this.openOverlay();
+    this.openDuelingOverlay();
     this.setUpOverlay(deck);
   } 
   setUpOverlay(deck){
@@ -44,7 +44,9 @@ export default class extends Controller {
   addCardsFor(board){
     this.removeAllCards();
     let zones_used = [];
-    
+    let added_card_to_graveyard = false;
+    const card_on_click = (event) => { this.openCardDetails(event.target) };
+
     board.board_cards.forEach((card_and_position) => {
       let zone = document.getElementById(card_and_position.position);
       let card = card_and_position.card;
@@ -53,7 +55,21 @@ export default class extends Controller {
       card_image.src = this.element.dataset.cardImageUrl;
       card_image.setAttribute("data-card-name", card.name);
       card_image.setAttribute("data-card-description", card.description); 
-      card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) }) // here make an overlay
+      card_image.addEventListener("click", card_on_click )
+
+      switch(zone.id){
+        case "graveyard":
+          if(!added_card_to_graveyard){ // creates a copy to append to the zone and appends the original to the overlay
+            let card_image_copy = card_image.cloneNode(false);
+            card_image_copy.removeEventListener("click", card_on_click);
+            card_image_copy.addEventListener("click", () => { this.openGraveyardOverlay() })
+            zone.appendChild(card_image_copy);
+            added_card_to_graveyard = true;
+          }
+          card_image.classList.add("overlay-card");
+          zone = this.graveyard_overlay_cards;
+        break;
+      }
 
       zone.appendChild(card_image);
       zones_used.push(card_and_position.position); 
@@ -150,11 +166,14 @@ export default class extends Controller {
     this.options.appendChild(div);
   }
 
-  openOverlay(){
-    document.getElementById("dueling-overlay").scrollIntoView();
-    let overlay = this.overlay;
+  openOverlay(overlay){
     overlay.style.pointerEvents = "all";
     overlay.style.opacity = "1";
+  }
+
+  openDuelingOverlay(){
+    document.getElementById("dueling-overlay").scrollIntoView();
+    this.openOverlay(this.overlay);
   }
 
   setTitle(archetypes){
@@ -188,26 +207,29 @@ export default class extends Controller {
     this.advice.textContent = "";
   }
 
-  flip(){
-    let outerDiv = this.targets.find("board-outer-div");
-
-    if(outerDiv.style.transform == "scaleY(-1)")
-      outerDiv.style.transform = "scaleY(1)";
-    else
-      outerDiv.style.transform = "scaleY(-1)";
-  } 
-
   close(){
     sessionStorage.setItem("current_deck_id", 0);
-    let overlay = this.overlay;
+    closeOverlay(this.overlay);
+  }
+
+  closeOverlay(overlay){
     overlay.style.pointerEvents = "none";
     overlay.style.opacity = "0";
+  }
+
+  openGraveyardOverlay(){
+    this.closeCardDetails();
+    this.openOverlay(this.graveyard_overlay);
+  }
+  closeGraveyardOverlay(){
+    this.closeCardDetails();
+    this.closeOverlay(this.graveyard_overlay);
   }
 
   addToDeckHistory(deck){
     let title = "";
     deck.archetypes.forEach((archetype) => {
-      title += archetype.name;
+      title += `${archetype.name} `;
     });
     title += ` - by ${deck.user.username}`;
     let new_deck = document.createElement("p");
@@ -285,5 +307,13 @@ export default class extends Controller {
 
   get card_details_description(){
     return this.targets.find("card-details-description");
+  }
+
+  get graveyard_overlay(){
+    return this.targets.find("graveyard-overlay");
+  }
+
+  get graveyard_overlay_cards(){
+    return this.targets.find("graveyard-overlay-cards");
   }
 }

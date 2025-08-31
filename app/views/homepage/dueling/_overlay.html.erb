@@ -1,4 +1,4 @@
-<section id="dueling-overlay" style="position: absolute; top:0; left:0; width:100%; min-height:100%;" data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%>" data-dueling-board-target="overlay">
+<section id="dueling-overlay" class="hidden-overlay" style="position: absolute; top:0; left:0; width:100%; min-height:100%;" data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%>" data-dueling-board-target="overlay">
   <button class="btn btn-danger" data-action="click->dueling-board#close">< Back</button>
   <h1>make gy and banish overlays</h1>
   <h1 data-dueling-board-target="title" class="text-center m-0 font-secondary fw-light"></h1>
@@ -7,9 +7,9 @@
   <p class="text-center mt-2 font-secondary color-gray" style="font-size:1.2rem"><i class="bi bi-patch-question-fill me-2"></i>Click on a card to read it</p>
   <div class="container-fluid row">
     <div class="col-lg-9 col-12 position-relative" data-dueling-board-target="board-outer-div">
-      <button class="btn btn-primary position-absolute rounded-4" data-action="click->dueling-board#flip"><i class="bi bi-arrow-down-up align-middle"></i></button>
       <%= render 'homepage/dueling/card_information' %>
       <%= render "homepage/dueling/board" %>
+      <%= render "homepage/dueling/graveyard_overlay" %>
     </div>
     <div class="col-lg-3 col-12 mt-3 mt-lg-0 border-lg-left">
       <%= render "homepage/dueling/options" %>

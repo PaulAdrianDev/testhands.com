@@ -63,7 +63,7 @@ input, select{
   background-color: #171717;
 }
 
-#dueling-overlay{
+.hidden-overlay{
   opacity:0;
   pointer-events:none;
   transition: opacity 0.2s;
@@ -138,6 +138,36 @@ div[data-dueling-board-target="card-details"]:hover{
   background-color: #202020;
 }
 
+div[data-dueling-board-target="graveyard-overlay"]{
+  position:absolute; 
+  top:0;
+  left:0;
+  height:102%;
+  width:100%;
+  background-color:rgba(11,11,11,0.85);
+  overflow-y: auto;
+}
+
+.overlay-card{
+  margin: 5px 0;
+  width: 15%;
+  cursor:pointer;
+  transition: transform 0.2s;
+}
+
+.overlay-card:hover{
+  transform:scale(1.05);
+}
+
+#dueling-board .usable-zone:has(> img:hover){
+  transform: scale(1.015);
+}
+
+p[data-dueling-board-target="advice"],
+p[data-dueling-board-target="board-information"],
+p[data-dueling-board-target="card-details-description"]{
+  white-space: pre-line;
+}
 
 /* width */
 ::-webkit-scrollbar {
