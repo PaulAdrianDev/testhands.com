@@ -44,8 +44,19 @@ export default class extends Controller {
   addCardsFor(board){
     this.removeAllCards();
     let zones_used = [];
-    let added_card_to_graveyard = false;
-    const card_on_click = (event) => { this.openCardDetails(event.target) };
+
+    const zoneDetails = {
+      graveyard: {
+        addedCard: false,
+        cards: this.graveyard_overlay_cards,
+        open: () => this.openGraveyardOverlay()
+      },
+      banishment: {
+        addedCard: false,
+        cards: this.banishment_overlay_cards,
+        open: () => this.openBanishmentOverlay()
+      }
+    }
 
     board.board_cards.forEach((card_and_position) => {
       let zone = document.getElementById(card_and_position.position);
@@ -55,20 +66,19 @@ export default class extends Controller {
       card_image.src = this.element.dataset.cardImageUrl;
       card_image.setAttribute("data-card-name", card.name);
       card_image.setAttribute("data-card-description", card.description); 
-      card_image.addEventListener("click", card_on_click )
+      card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) });
 
-      switch(zone.id){
-        case "graveyard":
-          if(!added_card_to_graveyard){ // creates a copy to append to the zone and appends the original to the overlay
-            let card_image_copy = card_image.cloneNode(false);
-            card_image_copy.removeEventListener("click", card_on_click);
-            card_image_copy.addEventListener("click", () => { this.openGraveyardOverlay() })
-            zone.appendChild(card_image_copy);
-            added_card_to_graveyard = true;
-          }
-          card_image.classList.add("overlay-card");
-          zone = this.graveyard_overlay_cards;
-        break;
+      if(zoneDetails[zone.id]){
+        const overlay = zoneDetails[zone.id];
+
+        if(!overlay.addedCard){
+          const card_image_copy = card_image.cloneNode(false);
+          card_image_copy.addEventListener("click", overlay.open )
+          zone.appendChild(card_image_copy);
+          overlay.addedCard = true;
+        }
+        card_image.classList.add("overlay-card");
+        zone = overlay.cards;
       }
 
       zone.appendChild(card_image);
@@ -226,6 +236,16 @@ export default class extends Controller {
     this.closeOverlay(this.graveyard_overlay);
   }
 
+  openBanishmentOverlay(){
+    this.closeCardDetails();
+    this.openOverlay(this.banishment_overlay);
+  }
+
+  closeBanishmentOverlay(){
+    this.closeCardDetails();
+    this.closeOverlay(this.banishment_overlay);
+  }
+
   addToDeckHistory(deck){
     let title = "";
     deck.archetypes.forEach((archetype) => {
@@ -315,5 +335,13 @@ export default class extends Controller {
 
   get graveyard_overlay_cards(){
     return this.targets.find("graveyard-overlay-cards");
+  }
+
+  get banishment_overlay(){
+    return this.targets.find("banishment-overlay");
+  }
+
+  get banishment_overlay_cards(){
+    return this.targets.find("banishment-overlay-cards");
   }
 }

@@ -65,6 +65,13 @@ def create_deck(tier:, advice:, user:, archetype_names:, boards:)
   end
 end
 
+def remove_decks
+  BoardCard.delete_all
+  Board.delete_all
+  DeckArchetype.delete_all
+  Deck.delete_all
+end
+
 def add_decks
   create_deck(
     tier: 3,
@@ -130,6 +137,10 @@ def add_decks
           {
             name: "Master Tao the Chanter",
             position: "graveyard"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "banishment"
           }
         ]
       }
@@ -139,4 +150,5 @@ end
 # add_archetypes
 # add_board_types
 # fetch_and_add_all_cards
+remove_decks
 add_decks
