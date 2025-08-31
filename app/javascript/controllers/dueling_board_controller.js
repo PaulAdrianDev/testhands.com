@@ -12,7 +12,8 @@ export default class extends Controller {
     consistent_information = info;
     this.openDuelingOverlay();
     this.setUpOverlay(deck);
-  } 
+  }
+
   setUpOverlay(deck){
     sessionStorage.setItem("current_deck_id", deck.id);
     this.closeCardDetails();
@@ -45,40 +46,34 @@ export default class extends Controller {
     this.removeAllCards();
     let zones_used = [];
 
-    const zoneDetails = {
+    const zones_with_overlays = {
       graveyard: {
         addedCard: false,
-        cards: this.graveyard_overlay_cards,
-        open: () => this.openGraveyardOverlay()
       },
       banishment: {
         addedCard: false,
-        cards: this.banishment_overlay_cards,
-        open: () => this.openBanishmentOverlay()
+      },
+      deck: {
+        addedCard: false,
+      },
+      extra_deck: {
+        addedCard: false,
       }
     }
 
     board.board_cards.forEach((card_and_position) => {
       let zone = document.getElementById(card_and_position.position);
-      let card = card_and_position.card;
+      let card_image = this.createCardElement(card_and_position.card);
 
-      let card_image = document.createElement("img");
-      card_image.src = this.element.dataset.cardImageUrl;
-      card_image.setAttribute("data-card-name", card.name);
-      card_image.setAttribute("data-card-description", card.description); 
-      card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) });
-
-      if(zoneDetails[zone.id]){
-        const overlay = zoneDetails[zone.id];
-
-        if(!overlay.addedCard){
+      if(zones_with_overlays[zone.id]){
+        if(!zones_with_overlays[zone.id].addedCard){
           const card_image_copy = card_image.cloneNode(false);
-          card_image_copy.addEventListener("click", overlay.open )
+          card_image_copy.addEventListener("click", () => { this.openBoardOverlay(event) })
           zone.appendChild(card_image_copy);
-          overlay.addedCard = true;
+          zones_with_overlays[zone.id].addedCard = true;
         }
         card_image.classList.add("overlay-card");
-        zone = overlay.cards;
+        zone = this.targets.find(`${zone.id}-overlay-cards`);
       }
 
       zone.appendChild(card_image);
@@ -86,6 +81,15 @@ export default class extends Controller {
     })
 
     this.addInvisibleCardsToEmptyRows(zones_used);
+  }
+
+  createCardElement(card){
+    let card_image = document.createElement("img");
+    card_image.src = this.element.dataset.cardImageUrl;
+    card_image.setAttribute("data-card-name", card.name);
+    card_image.setAttribute("data-card-description", card.description); 
+    card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) });
+    return card_image;
   }
 
   addInvisibleCardsToEmptyRows(zones){ // this is needed because the table td's have set width but no height, if a row doesn't have a single card in it then the whole row becomes height 0
@@ -97,7 +101,7 @@ export default class extends Controller {
         cards_in_row[0] = true;
       else if(zone.includes("mmz") || zone == "field" || zone == "graveyard")
         cards_in_row[1] = true;
-      else if(zone.includes("stz") || zone == "deck" || zone == "extra-deck")
+      else if(zone.includes("stz") || zone == "deck" || zone == "extra_deck")
         cards_in_row[2] = true;
       else
         cards_in_row[3] = true;
@@ -176,11 +180,6 @@ export default class extends Controller {
     this.options.appendChild(div);
   }
 
-  openOverlay(overlay){
-    overlay.style.pointerEvents = "all";
-    overlay.style.opacity = "1";
-  }
-
   openDuelingOverlay(){
     document.getElementById("dueling-overlay").scrollIntoView();
     this.openOverlay(this.overlay);
@@ -188,11 +187,7 @@ export default class extends Controller {
 
   setTitle(archetypes){
     let title = "";
-
-    archetypes.forEach((archetype) => {
-      title += archetype.name;
-    });
-
+    archetypes.forEach((archetype) => { title += archetype.name; });
     this.title.textContent = title;
   }
 
@@ -222,28 +217,26 @@ export default class extends Controller {
     closeOverlay(this.overlay);
   }
 
+  openOverlay(overlay){
+    overlay.style.pointerEvents = "all";
+    overlay.style.opacity = "1";
+  }
+
   closeOverlay(overlay){
     overlay.style.pointerEvents = "none";
     overlay.style.opacity = "0";
   }
 
-  openGraveyardOverlay(){
+  openBoardOverlay(event){
+    let zone = event.target.parentElement.id;
     this.closeCardDetails();
-    this.openOverlay(this.graveyard_overlay);
-  }
-  closeGraveyardOverlay(){
-    this.closeCardDetails();
-    this.closeOverlay(this.graveyard_overlay);
+    this.openOverlay(this.targets.find(`${zone}-overlay`));
   }
 
-  openBanishmentOverlay(){
+  closeBoardOverlay(event){
+    let overlay = event.target.parentElement.getAttribute("data-dueling-board-target");
     this.closeCardDetails();
-    this.openOverlay(this.banishment_overlay);
-  }
-
-  closeBanishmentOverlay(){
-    this.closeCardDetails();
-    this.closeOverlay(this.banishment_overlay);
+    this.closeOverlay(this.targets.find(overlay));
   }
 
   addToDeckHistory(deck){
@@ -263,7 +256,7 @@ export default class extends Controller {
 
   rematchDeck(deck_id){
     window.scrollTo(0, 0);
-    if(current_deck_id() != deck_id)
+    if(sessionStorage.getItem("current_deck_id") != deck_id)
       this.setUpOverlay(deck_history[deck_id]);
   }
 
@@ -275,10 +268,6 @@ export default class extends Controller {
         randomController.open(consistent_information.tier);
       break;
     }
-  }
-
-  current_deck_id(){
-    return sessionStorage.getItem("current_deck_id");
   }
 
   get overlay(){
@@ -327,21 +316,5 @@ export default class extends Controller {
 
   get card_details_description(){
     return this.targets.find("card-details-description");
-  }
-
-  get graveyard_overlay(){
-    return this.targets.find("graveyard-overlay");
-  }
-
-  get graveyard_overlay_cards(){
-    return this.targets.find("graveyard-overlay-cards");
-  }
-
-  get banishment_overlay(){
-    return this.targets.find("banishment-overlay");
-  }
-
-  get banishment_overlay_cards(){
-    return this.targets.find("banishment-overlay-cards");
   }
 }

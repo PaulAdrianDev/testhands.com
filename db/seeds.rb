@@ -141,7 +141,48 @@ def add_decks
           {
             name: "Master Tao the Chanter",
             position: "banishment"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "banishment"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "banishment"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "banishment"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "extra_deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "extra_deck"
+          },
+          {
+            name: "Master Tao the Chanter",
+            position: "extra_deck"
           }
+          
         ]
       }
     ])
