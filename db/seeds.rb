@@ -57,7 +57,7 @@ def create_deck(tier:, advice:, user:, archetype_names:, boards:)
     archetype_names.each { |name| deck.archetypes << Archetype.find_by!(name: name) }
 
     boards.each do |board|
-      new_board = Board.create!(deck_summons: board[:deck_summons], hand_summons: board[:hand_summons], gy_banishment_summons: board[:gy_banishment_summons], board_type: BoardType.find_by!(name: board[:board_type]), deck: deck)
+      new_board = Board.create!(information: board[:information], deck_summons: board[:deck_summons], hand_summons: board[:hand_summons], gy_banishment_summons: board[:gy_banishment_summons], board_type: BoardType.find_by!(name: board[:board_type]), deck: deck)
       board[:cards].each do |card|
         new_board.board_cards.create!(position: card[:position], card: Card.find_by!(name: card[:name]))
       end
@@ -76,6 +76,7 @@ def add_decks
         deck_summons: 4,
         hand_summons: 1,
         gy_banishment_summons: 2,
+        information: "Discard 1 before drawing your sixth card.",
         board_type: "Full Combo 1",
         cards: [
           {
