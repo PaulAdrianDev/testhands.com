@@ -20,6 +20,7 @@ export default class extends Controller {
     this.setBoardType("Full Combo 1");
     this.setUsername(deck.user.username);
     this.setAdvice(deck.advice);
+    this.setBoardInformation(deck.boards.find(board => board.board_type.name === "Full Combo 1"));
     this.addBoardsAndOptions(deck.boards);
     this.addToDeckHistory(deck);
   }
@@ -93,6 +94,19 @@ export default class extends Controller {
       while(zone.firstChild)
         zone.removeChild(zone.lastChild);
     })
+  }
+
+  setBoardInformation(board){
+    let information = board.information;
+
+    if (information && information.trim() !== "") {
+      this.targets.find("board-information-title").textContent = "Information about board:";
+      this.targets.find("board-information").textContent = information;
+    }
+    else{
+      this.targets.find("board-information-title").textContent = "";
+      this.targets.find("board-information").textContent = "";
+    }
   }
 
   openCardDetails(card){
