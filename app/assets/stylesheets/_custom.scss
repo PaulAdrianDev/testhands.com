@@ -169,6 +169,10 @@ p[data-dueling-board-target="card-details-description"]{
   white-space: pre-line;
 }
 
+div[data-dueling-board-target="summons"] p{
+  margin-bottom:0;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;

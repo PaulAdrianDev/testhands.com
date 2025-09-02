@@ -74,8 +74,8 @@ end
 
 def add_decks
   create_deck(
-    tier: 3,
-    advice: "Imperms/Veilers usually aren't good because the enemy can just chain Chimera Fusion to it, but if you have it always use it on Berfomet. Always use Ash Blossom on Berfomet, not Mirror Swordknight because this deck plays 2 Berfomets and it really likes when it can resolve it, so by Ash-ing one you waste 1 of the 2 Berfomets.\n\nDon't forget about Mirror Swordknight, Cornfield Coatl and the 2 Chimera fusions in the grave, they have effects. Also, if the you broke the board and you go battle phase, if your opponent uses Chimera in the gy to summon Mirror Swordknight (which can't be destroyed by battle) can you still win?\n\nArtmage Diactorus only negates when the player has 3 types, but if you think you are safe the player can use a Chimera fusion monster in the grave to get the 3rd type on field. Also if you destroy Diactorus before it uses it's effect it can summon Medius The Pure from deck and he can summon Artmage Power Patron from deck which can fuse into another, keep that in mind and try to get rid of him without destroying him.",
+    tier: 2,
+    advice: "Imperms/Veilers usually aren't good because the enemy can just chain Chimera Fusion to it, but if you have it always use it on Berfomet. Always use Ash Blossom on Berfomet, not Mirror Swordknight because this deck plays 2 Berfomets and it really likes when it can resolve it, so by Ash-ing one you waste 1 of the 2 Berfomets.\n\nDon't forget about Mirror Swordknight, Cornfield Coatl and the 2 Chimera fusion monsters in the grave, they have effects, also if you want to play the deck, Chimera Fusion adds itself if you have Chimera the Flying Mythical Beast in your field OR GRAVEYARD!! Also, if the you broke the board and you go battle phase, if your opponent uses Chimera in the gy to summon Mirror Swordknight (which can't be destroyed by battle) can you still win?\n\nArtmage Diactorus only negates when the player has 3 types, but if you think you are safe the player can use a Chimera fusion monster in the grave to get the 3rd type on field. Also if you destroy Diactorus before it uses it's effect it can summon Medius The Pure from deck and he can summon Artmage Power Patron from deck which can fuse into another, keep that in mind and try to get rid of him without destroying him.",
     user: User.find_by!(username: "testhands.com"),
     archetype_names: ["Artmage", "Chimera"],
     boards: [
@@ -83,7 +83,7 @@ def add_decks
         deck_summons: 4,
         hand_summons: 1,
         gy_banishment_summons: 2,
-        information: "Discard 1 before drawing your sixth card.",
+        information: "- Discard 1 before drawing your sixth card.\n- If you destroy Diactorus before his negate he will summon Medius and Power Patron from deck and Patron will fuse into another.",
         board_type: "Full Combo 1",
         cards: [
           {
@@ -139,50 +139,82 @@ def add_decks
             position: "graveyard"
           },
           {
-            name: "Master Tao the Chanter",
-            position: "banishment"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "banishment"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "banishment"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "banishment"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "deck"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "deck"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "deck"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "deck"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "extra_deck"
-          },
-          {
-            name: "Master Tao the Chanter",
-            position: "extra_deck"
-          },
-          {
-            name: "Master Tao the Chanter",
+            name: "Artmage Diactorus",
             position: "extra_deck"
           }
-          
+        ]
+      },
+      {
+        deck_summons: 2,
+        hand_summons: 1,
+        gy_banishment_summons: 1,
+        information: "- Discard 1 before drawing your sixth card.\n- Used Mirror Swordknight in your draw phase to summon Berfomet and add Gazelle (so if you drew Ash Blossom 6th card ignore Berfomet, Gazelle and Chimera Fusion in hand).\n- Will fuse into Guardian Chimera after Mirror Swordnight grave effect, or if you drew Ash Blossom 6th card into Magnum The Reliever or Dragostapelia if you decide to get Super Poly'd first.",
+        board_type: "Full Combo 2",
+        cards:[
+          {
+            name: "Chimera the King of Phantom Beasts",
+            position: "emz1"
+          },
+          {
+            name: "Big-Winged Berfomet",
+            position: "mmz1"
+          },
+          {
+            name: "Chimera Fusion",
+            position: "stz3"
+          },
+          {
+            name: "Super Polymerization",
+            position: "stz4"
+          },
+          {
+            name: "Emissary from the House of Wax",
+            position: "hand1"
+          },
+          {
+            name: "Gazelle the King of Mythical Claws",
+            position: "hand2"
+          },
+          {
+            name: "Chimera Fusion",
+            position: "hand3"
+          },
+          {
+            name: "Cornfield Coatl",
+            position: "graveyard"
+          },
+          {
+            name: "Mirror Swordknight",
+            position: "graveyard"
+          },
+          {
+            name: "Big-Winged Berfomet",
+            position: "graveyard"
+          },
+          {
+            name: "Gazelle the King of Mythical Claws",
+            position: "graveyard"
+          },
+          {
+            name: "Guardian Chimera",
+            position: "extra_deck"
+          },
+          {
+            name: "Magnum the Reliever",
+            position: "extra_deck"
+          },
+          {
+            name: "Garura, Wings of Resonant Life",
+            position: "extra_deck"
+          },
+          {
+            name: "Mudragon of the Swamp",
+            position: "extra_deck"
+          },
+          {
+            name: "Predaplant Dragostapelia",
+            position: "extra_deck"
+          }
         ]
       }
     ])

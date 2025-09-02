@@ -4,7 +4,7 @@ export default class extends Controller {
   connect(){
     window.deck_history = {};
     sessionStorage.setItem("current_deck_id", 0);
-    window.consistent_information = {}; // tier, deck, user
+    window.consistent_information = {}; // tier, archetype, user
   }
 
   open(deck, info){
@@ -15,31 +15,50 @@ export default class extends Controller {
   }
 
   setUpOverlay(deck){
+    const primary_board = deck.boards.find(board => board.board_type.name === "Full Combo 1");
     sessionStorage.setItem("current_deck_id", deck.id);
     this.closeCardDetails();
+    this.setDeckSpecificInformation(deck);
+    this.setBoardSpecificInformation(primary_board);
+  }
+
+  setDeckSpecificInformation(deck){
     this.setTitle(deck.archetypes);
-    this.setBoardType("Full Combo 1");
     this.setUsername(deck.user.username);
     this.setAdvice(deck.advice);
-    this.setBoardInformation(deck.boards.find(board => board.board_type.name === "Full Combo 1"));
-    this.addBoardsAndOptions(deck.boards);
+    this.setOptions(deck.boards);
     this.addToDeckHistory(deck);
   }
 
-  addBoardsAndOptions(boards){
-    this.options.innerHTML = ""; // clear past children
+  setBoardSpecificInformation(board){
+    this.setBoardType(board.board_type.name);
+    this.addCardsFor(board);
+    this.setBoardInformation(board);
+    this.setSummons(board);
+  }
+
+  setOptions(boards){
+    this.options.replaceChildren();
 
     boards.forEach((board) =>{
       this.addOptionFor(board);
-      if(board.board_type.name == "Full Combo 1")
-        this.addCardsFor(board);
     });
   }
 
   changeBoard(board_id){
+    this.clearBoardOverlayCards();
     let board = JSON.parse(sessionStorage.getItem(board_id));
-    this.setBoardType(board.board_type.name);
-    this.addCardsFor(board);
+    this.setBoardSpecificInformation(board);
+  }
+
+  clearBoardOverlayCards(){
+    const overlay_names = [ "deck", "extra_deck", "graveyard", "banishment" ];
+
+    overlay_names.forEach((name) => {
+      let overlay_cards_div = this.targets.find(`${name}-overlay-cards`);
+      while(overlay_cards_div.firstChild)
+        overlay_cards_div.removeChild(overlay_cards_div.lastChild);
+    })
   }
 
   addCardsFor(board){
@@ -81,6 +100,23 @@ export default class extends Controller {
     })
 
     this.addInvisibleCardsToEmptyRows(zones_used);
+  }
+
+  setSummons(board){
+    let summons_div = this.targets.find("summons");
+    summons_div.replaceChildren();
+
+    let hand = document.createElement("p");
+    let deck = document.createElement("p");
+    let gy_banishment = document.createElement("p");
+
+    hand.textContent = `Hand: ${board.hand_summons}`;
+    deck.textContent = `Deck: ${board.deck_summons}`;
+    gy_banishment.textContent = `GY and Banishment: ${board.gy_banishment_summons}`;
+
+    summons_div.appendChild(hand);
+    summons_div.appendChild(deck);
+    summons_div.appendChild(gy_banishment);
   }
 
   createCardElement(card){
@@ -154,18 +190,7 @@ export default class extends Controller {
   }
 
   addOptionFor(board){
-    let newOption = document.createElement("input");
-    newOption.type = "radio";
-    newOption.id = "board" + board.id;
-    newOption.value = board.id;
-    newOption.name = "board_select";
-    newOption.classList.add("me-2");
-    newOption.style.cursor = "pointer";
-    newOption.style.transform = "scale(1.3)";
-    if(board.board_type.name == "Full Combo 1")
-      newOption.checked = true;
-
-    newOption.addEventListener("click", (event) => { this.changeBoard(event.target.id) });
+    let newOption = this.createNewOptionFor(board);
 
     sessionStorage.setItem(newOption.id, JSON.stringify(board));
 
@@ -180,6 +205,21 @@ export default class extends Controller {
     this.options.appendChild(div);
   }
 
+  createNewOptionFor(board){
+    let newOption = document.createElement("input");
+    newOption.type = "radio";
+    newOption.id = "board" + board.id;
+    newOption.value = board.id;
+    newOption.name = "board_select";
+    newOption.classList.add("me-2");
+    newOption.style.cursor = "pointer";
+    newOption.style.transform = "scale(1.3)";
+    newOption.addEventListener("click", (event) => { this.changeBoard(event.target.id) });
+    if(board.board_type.name == "Full Combo 1")
+      newOption.checked = true;
+    return newOption;
+  }
+
   openDuelingOverlay(){
     document.getElementById("dueling-overlay").scrollIntoView();
     this.openOverlay(this.overlay);
@@ -187,7 +227,7 @@ export default class extends Controller {
 
   setTitle(archetypes){
     let title = "";
-    archetypes.forEach((archetype) => { title += archetype.name; });
+    archetypes.forEach((archetype) => { title += `${archetype.name} `; });
     this.title.textContent = title;
   }
 
@@ -202,7 +242,7 @@ export default class extends Controller {
   setAdvice(advice){
     this.removePreviousAdvice();
     if(advice){
-      this.advice_title.textContent = "Creator's Advice:";
+      this.advice_title.textContent = "Creator's Advice About the Deck:";
       this.advice.textContent = advice;
     }
   }
@@ -214,7 +254,7 @@ export default class extends Controller {
 
   close(){
     sessionStorage.setItem("current_deck_id", 0);
-    closeOverlay(this.overlay);
+    this.closeOverlay(this.overlay);
   }
 
   openOverlay(overlay){
