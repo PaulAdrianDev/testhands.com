@@ -31,7 +31,6 @@ export default class extends Controller {
   }
 
   setBoardSpecificInformation(board){
-    this.setBoardType(board.board_type.name);
     this.addCardsFor(board);
     this.setBoardInformation(board);
     this.setSummons(board);
@@ -231,9 +230,6 @@ export default class extends Controller {
     this.title.textContent = title;
   }
 
-  setBoardType(name){
-    this.board_type.textContent = name;
-  }
 
   setUsername(username){
     this.username.textContent = "- by " + username;
@@ -321,10 +317,6 @@ export default class extends Controller {
 
   get title(){
     return this.targets.find("title");
-  }
-
-  get board_type(){
-    return this.targets.find("board-type");
   }
 
   get username(){
