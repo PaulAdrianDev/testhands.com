@@ -220,8 +220,9 @@ def add_decks
     ])
 end
 
-# add_archetypes
-# add_board_types
-# fetch_and_add_all_cards
+add_archetypes
+add_board_types
+fetch_and_add_all_cards
+add_users
 remove_decks
 add_decks
