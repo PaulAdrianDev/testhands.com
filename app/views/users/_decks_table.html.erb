@@ -6,7 +6,7 @@
       <div class="user-deck border border-primary rounded-3 py-3 px-4 mt-4">
         <p class="d-inline-block align-middle my-0 mx-1">#<%= deck.id %></p>  
         <h4 class="d-inline-block align-middle my-0 mx-2 search_target"><%= "#{deck.archetypes.map(&:name).join(" ")} | #{pluralize(deck.boards.count, '- Board')} | Uploaded on: #{deck.created_at.strftime('%d/%m/%Y')}" %></h4>
-        <%= link_to "View", user_deck_path(deck), class: "btn btn-primary align-middle my-0 mx-1 px-3 py-1" %>
+        <%= link_to "View", user_deck_path(@user, deck), class: "btn btn-primary align-middle my-0 mx-1 px-3 py-1" %>
       </div>
     <% end %>
   <% end %>
