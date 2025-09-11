@@ -8,7 +8,6 @@ class Users::DecksController < ApplicationController
   end
 
   def show
-    set_deck_title
   end
 
   def edit
@@ -31,12 +30,5 @@ class Users::DecksController < ApplicationController
 
   def get_user
     @user = User.find(params[:user_id])
-  end
-
-  def set_deck_title
-    @title = ""
-    @deck.archetypes.each do |archetype|
-      @title = "#{@title} #{archetype.name}"
-    end
   end
 end

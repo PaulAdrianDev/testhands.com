@@ -1,0 +1,6 @@
+<% if @deck.archetypes.present? %>
+  <% @deck.archetypes.each do |archetype| %>
+    <button class="btn btn-primary me-2"><i class="bi bi-x-lg me-2 align-middle"></i><%= archetype.name %></button>
+  <% end %>
+<% end %>
+<button class="btn btn-outline-primary"> + Add Archetype </button>
