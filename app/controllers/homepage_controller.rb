@@ -10,7 +10,7 @@ class HomepageController < ApplicationController
       "4": 'Rogue Decks',
       "5": 'Weak Decks'
     }
-    @archetypes = Archetype.all
+    @archetypes = Archetype.includes(:decks)
   end
 
   def random

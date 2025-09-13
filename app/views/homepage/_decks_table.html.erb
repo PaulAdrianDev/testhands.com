@@ -1,5 +1,10 @@
 <div class="mt-4 py-3 decks-table" id="decks-table" data-specific-deck-target="decks_table">
   <% @archetypes.each do |archetype| %>
-    <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>" data-action="specific-deck#open"><%= archetype.name %></button>
+    <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4"
+    value="<%= archetype.id %>" 
+    data-action="specific-deck#open"
+    <%= "disabled" if archetype.decks.empty? %>>
+      <%= archetype.name %>
+    </button>
   <% end %>
 </div>
