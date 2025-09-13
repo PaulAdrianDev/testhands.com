@@ -7,4 +7,12 @@
     Edit
     <% end %>
   </h1>
+  <div>
+    <h2 class="mb-0">Deck Information</h2>
+    <p class="mb-3"><%= "Uploaded on: #{@deck.created_at.strftime('%d/%m/%Y')}" %></p>
+    <h4 class="mb-3"><%= "- Tier: #{@deck.tier}" %><h4>
+    <h4 class="mb-0">- Advice:</h4>
+    <p class="advice-text"><%= @deck.advice %></p>
+  </div>
+  <%= render 'showing_boards' %>
 </section>

@@ -74,22 +74,22 @@ p[data-dueling-board-target="username"]{
   font-size: 1.1rem;
 }
 
-#dueling-board{
+.dueling-board{
   width:100%;
   border-spacing: 5px;
   border-collapse: separate;
   table-layout: fixed;
 }
 
-#dueling-board td{
+.dueling-board td{
   width:14.2%;
 }
 
-#dueling-board td img{
+.dueling-board td img{
   width:100%;
 }
 
-#dueling-board .usable-zone{
+.dueling-board .usable-zone{
   background-color: transparent;
   border:1px solid gray;
 }
@@ -98,7 +98,9 @@ p[data-dueling-board-target="username"]{
   background-color: #171717;
   display:inline-block;
 }
-
+.advice-text{
+  white-space: pre-wrap;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 15px;
