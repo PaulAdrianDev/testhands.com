@@ -18,9 +18,65 @@ export default class extends Controller {
     }
   }
 
-  open(event){
-    alert(event.currentTarget.value);
+  async open(arg) {
+    const archetype_id = (arg instanceof Event) ? arg.target.value : arg; // if arg is event it means it was called by data-action, thus we need the this.tier value
+
+    this.disableDecksTable();
+    await this.openDuelingBoard(archetype_id);
+    this.enableDecksTable();
   }
+
+  async openDuelingBoard(archetype_id){
+    let response = await this.getDeck(archetype_id);
+    if( response == null ){
+      alert("An error occurred, please report this to us.");
+      return null;
+    }
+    else if( response.error ){
+      alert(response.error);
+      return null;
+    }
+
+    const dueling_board = document.getElementById("dueling-overlay");
+    const boardController = this.application.getControllerForElementAndIdentifier(dueling_board, "dueling-board");
+    boardController.open(response.deck, { archetype_id: archetype_id });
+  }
+
+  async getDeck(archetype_id){
+    let data = null;
+    let url = `/api/v1/decks/random?archetype_id=${archetype_id}`;
+    let curr_deck_id = parseInt(sessionStorage.getItem("current_deck_id"), 10);
+
+    if(Number.isInteger(curr_deck_id))
+      url = `${url}&except=${curr_deck_id}`; // in future if i want to exclude many previously fought decks make it here
+
+    try{
+      let res = await fetch(url);
+      data = await res.json();
+    }
+    catch(e){
+      return null;
+    }
+    
+    return data;
+  }
+
+  disableDecksTable(){
+    let btn = document.getElementById("decks-table");
+    btn.style.pointerEvents = "none";
+    btn.style.cursor = "wait";
+  }
+
+  enableDecksTable(){
+    let btn = document.getElementById("decks-table");
+    btn.style.pointerEvents = "all";
+    btn.style.cursor = "pointer";
+  }
+
+  get tier(){
+    return this.targets.find("tier").value;
+  }
+
 
   get query() {
     return this.targets.find("query").value;

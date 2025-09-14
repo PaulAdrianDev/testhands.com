@@ -4,7 +4,7 @@ export default class extends Controller {
   connect(){
     window.deck_history = {};
     sessionStorage.setItem("current_deck_id", 0);
-    window.consistent_information = {}; // tier, archetype, user
+    window.consistent_information = {}; // tier, archetype_id, user
   }
 
   open(deck, info){
@@ -306,6 +306,11 @@ export default class extends Controller {
         const random_deck = document.getElementById("random-deck-tab");
         const randomController = this.application.getControllerForElementAndIdentifier(random_deck, "random-board");
         randomController.open(consistent_information.tier);
+      break;
+      case "archetype_id":
+        const specific_deck = document.getElementById("random-deck-tab");
+        const specificController = this.application.getControllerForElementAndIdentifier(specific_deck, "random-board");
+        specificController.open(consistent_information.archetype_id);
       break;
     }
   }

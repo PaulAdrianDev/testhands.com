@@ -14,4 +14,12 @@ class Deck < ApplicationRecord
     return all if tier.blank? || tier == "any"
     where(tier: tier.to_i)
   }
+
+  scope :with_archetype_id, ->(id) {
+    if id.is_a?(Integer)
+      joins(:archetypes).where(archetypes: { id: id })
+    else
+      all
+    end
+  }
 end

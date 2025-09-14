@@ -5,7 +5,11 @@ module Api
 
       def random
         except_id = params[:except].present? ? params[:except].to_i : -1
-        ids = Deck.with_tier(params[:tier]).where.not(id: except_id).pluck(:id)
+        ids = Deck
+          .with_archetype_id(params[:archetype_id])
+          .with_tier(params[:tier])
+          .where.not(id: except_id)
+          .pluck(:id)
 
         return render json: { error: "No Deck found." } if ids.empty?
 
