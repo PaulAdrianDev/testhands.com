@@ -21,7 +21,7 @@ gem "pry-byebug"
 
 gem "rubocop"
 
-gem 'active_model_serializers', '~> 0.10.15'
+gem "active_model_serializers", "~> 0.10.15"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"

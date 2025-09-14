@@ -7,7 +7,7 @@ class Deck < ApplicationRecord
   has_many :archetypes, through: :deck_archetypes
 
   scope :with_includes, -> {
-    includes(:user, :archetypes, boards: [:board_type, { board_cards: :card }])
+    includes(:user, :archetypes, boards: [ :board_type, { board_cards: :card } ])
   }
 
   scope :with_tier, ->(tier) {
