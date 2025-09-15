@@ -14,4 +14,21 @@ class Deck < ApplicationRecord
       archetype_list
     end
   end
+  
+  scope :with_includes, -> {
+    includes(:user, :archetypes, boards: [ :board_type, { board_cards: :card } ])
+  }
+
+  scope :with_tier, ->(tier) {
+    return all if tier.blank? || tier == "any"
+    where(tier: tier.to_i)
+  }
+
+  scope :with_archetype_id, ->(id) {
+    if id.is_a?(Integer)
+      joins(:archetypes).where(archetypes: { id: id })
+    else
+      all
+    end
+  }
 end

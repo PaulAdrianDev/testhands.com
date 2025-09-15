@@ -1,33 +1,49 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  async open() {
+  async open(arg) {
+    let tier = (arg instanceof Event) ? this.tier : arg; // if arg is event it means it was called by data-action, thus we need the this.tier value
+
+    if(!["any", "1", "2", "3", "4", "5"].includes(tier))
+      tier = "any";
+
     this.disableButton();
-    await this.openDuelingBoard();
+    await this.openDuelingBoard(tier);
     this.enableButton();
   }
 
-  async openDuelingBoard(){
-    let response = await this.getDeck();
+  async openDuelingBoard(tier){
+    let response = await this.getDeck(tier);
     if( response == null ){
       alert("An error occurred, please report this to us.");
+      return null;
+    }
+    else if( response.error ){
+      alert(response.error);
       return null;
     }
     // openboard
     const dueling_board = document.getElementById("dueling-overlay");
     const boardController = this.application.getControllerForElementAndIdentifier(dueling_board, "dueling-board");
-    boardController.open(response.deck);
+    boardController.open(response.deck, { tier: tier });
   }
 
-  async getDeck(){
+  async getDeck(tier){
     let data = null;
+    let url = `/api/v1/decks/random?tier=${tier}`;
+    let curr_deck_id = parseInt(sessionStorage.getItem("current_deck_id"), 10);
+
+    if(Number.isInteger(curr_deck_id))
+      url = `${url}&except=${curr_deck_id}`; // in future if i want to exclude many previously fought decks make it here
+
     try{
-      let res = await fetch("/api/v1/decks/random");
+      let res = await fetch(url);
       data = await res.json();
     }
     catch(e){
       return null;
     }
+    
     return data;
   }
 

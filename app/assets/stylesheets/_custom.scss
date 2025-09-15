@@ -63,15 +63,19 @@ input, select{
   background-color: #171717;
 }
 
-#dueling-overlay{
+.hidden-overlay{
   opacity:0;
   pointer-events:none;
   transition: opacity 0.2s;
 }
 
-p[data-dueling-board-target="username"]{
+.small-gray{
   color:rgb(117, 117, 117);
   font-size: 1.1rem;
+}
+
+div[data-dueling-board-target="board-outer-div"]{
+  transition: transform 0.4s;
 }
 
 .dueling-board{
@@ -87,11 +91,86 @@ p[data-dueling-board-target="username"]{
 
 .dueling-board td img{
   width:100%;
+  cursor:pointer;
+  transition: transform 0.2s;
+}
+
+#dueling-board .usable-zone:has(> img:hover){
+  transform: scale(1.015);
 }
 
 .dueling-board .usable-zone{
   background-color: transparent;
   border:1px solid gray;
+  transition: transform 0.2s;
+}
+
+.border-lg-left{
+  border-left: none;
+}
+
+.data-deck-history-deck{
+  cursor:pointer;
+  transition:color 0.3s;
+  padding:5px;
+  margin-bottom:0;
+}
+
+.data-deck-history-deck:hover{
+  color: $primary;
+}
+
+div[data-dueling-board-target="card-details"]{
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  background-color: #171717;
+  width:94%;
+  border:2px solid $primary;
+  cursor:pointer;
+  transition: opacity 0.2s;
+  opacity:0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+div[data-dueling-board-target="card-details"]:hover{
+  background-color: #202020;
+}
+
+.board-overlay{
+  position:absolute; 
+  top:0;
+  left:0;
+  height:102%;
+  width:100%;
+  background-color:rgba(11,11,11,0.85);
+  overflow-y: auto;
+}
+
+.overlay-card{
+  margin: 5px 0;
+  width: 15%;
+  cursor:pointer;
+  transition: transform 0.2s;
+}
+
+.overlay-card:hover{
+  transform:scale(1.05);
+}
+
+#dueling-board .usable-zone:has(> img:hover){
+  transform: scale(1.015);
+}
+
+p[data-dueling-board-target="advice"],
+p[data-dueling-board-target="board-information"],
+p[data-dueling-board-target="card-details-description"]{
+  white-space: pre-line;
+}
+
+div[data-dueling-board-target="summons"] p{
+  margin-bottom:0;
 }
 
 .user-deck{
@@ -110,7 +189,6 @@ p[data-dueling-board-target="username"]{
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(94, 118, 161);
   background-color: #111111;
-  border-radius: 10px;
 }
 
 /* Handle */
@@ -123,5 +201,9 @@ p[data-dueling-board-target="username"]{
   section{
     padding-left:40px !important;
     padding-right:40px !important;
+  }
+
+  .border-lg-left{
+    border-left: 3px solid $primary;
   }
 }

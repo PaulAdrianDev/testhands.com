@@ -1,10 +1,10 @@
-<div class="tab-pane fade show active text-center" id="section1" role="tabpanel" data-controller="random-board">
+<div class="tab-pane fade show active text-center" id="random-deck-tab" role="tabpanel" data-controller="random-board">
   <h1>Duel a Random Deck</h1>
   <div class="my-5">
     <label for="select-tier" class="fs-3">Choose your tier:</label><br>
     <select name="random-tier" id="select-tier" class="fs-4" data-random-board-target="tier">
       <% @tiers.each do |tier, description| %>
-        <option value="<%= tier %>"><%= tier.capitalize %> - <%= description %></option>
+        <option value="<%= tier %>" data-random-board-target="tier"><%= tier.capitalize %> - <%= description %></option>
       <% end %>
     </select>
   </div>
