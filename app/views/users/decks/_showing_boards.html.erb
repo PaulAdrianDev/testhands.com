@@ -1,27 +1,11 @@
-<div data-controller="viewing-board">
+<div data-controller="viewing-board" data-deck-id="<%= params[:id] %>" data-card-image-url="<%= asset_path('card.jpg')%>">
+
   <h1 class="mb-0">Boards</h1>
-  <p>Click to view a board</p>
-  <% if @deck.boards.blank? %>
-    <h2 class="text-center">No Boards added.</h2>
-  <% else %>
-    <div data-viewing-board-target="view-board-options">
-      <% @deck.boards.each do |board| %>
-        <button class="btn btn-outline-primary" data-action="click->viewing-board#view" data-board-id="<%= board.id %>"><%= board.board_type.name %></button>
-      <% end %>
-    </div>
-  <% end %>
-  <div>
+  <div data-controller="dueling-board">
     <h2 class="text-center" data-viewing-board-target="board-name">Board Name</h2>
-    <div class="row">
-      <div class="col-12 col-lg-9">
-        <%= render 'board' %>
-      </div>
-      <div class="col-12 col-lg-3">
-        <h2>Summons:</h2>
-        <p data-viewing-board-target="hand-summons"></p>
-        <p data-viewing-board-target="deck-summons"></p>
-        <p data-viewing-board-target="gy-banishment-summons"></p>
-      </div>
-    </div>
+    <%= render 'homepage/dueling/interface' %>
+
+    <h1 class="mt-4 mb-0" data-dueling-board-target="board-information-title"></h1>
+    <p class="mt-0 mb-5" data-dueling-board-target="board-information"></p>
   </div>
 </div>

@@ -95,7 +95,7 @@ div[data-dueling-board-target="board-outer-div"]{
   transition: transform 0.2s;
 }
 
-#dueling-board .usable-zone:has(> img:hover){
+.dueling-board .usable-zone:has(> img:hover){
   transform: scale(1.015);
 }
 

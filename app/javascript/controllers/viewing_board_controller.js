@@ -16,9 +16,6 @@ export default class extends Controller {
       return;
     }
 
-    this.setBoardTitle(event.target.textContent);
-    this.setSummons(board);
-    this.setCardsToBoard(board.board_cards);
   }
 
   setCardsToBoard(cards){

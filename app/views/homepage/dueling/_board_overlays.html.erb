@@ -1,5 +1,3 @@
-<%= render 'homepage/dueling/card_information' %>
-
 <% ["graveyard", "banishment", "deck", "extra_deck"].each do |name| %>
   <div data-dueling-board-target="<%= "#{name}-overlay" %>" class="p-3 hidden-overlay board-overlay">
     <button class="btn btn-danger px-3" data-action="click->dueling-board#closeBoardOverlay">X</button>
