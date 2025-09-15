@@ -29,10 +29,17 @@ module Api
         ]
       end
 
-      def specific_board
-        board_id = params.expect(:board_id)
-        board = Board.find(board_id)
-        render json: board, include: ['board_cards', 'board_cards.card']
+      def specific_deck
+        deck_id = params.expect(:deck_id)
+        deck = Deck.with_includes.find(deck_id)
+        render json: deck, include: [
+          "user",
+          "archetypes",
+          "boards",
+          "boards.board_type",
+          "boards.board_cards",
+          "boards.board_cards.card"
+        ]
       end
     end
   end

@@ -225,22 +225,28 @@ export default class extends Controller {
   }
 
   setTitle(archetypes){
-    let title = "";
-    archetypes.forEach((archetype) => { title += `${archetype.name} `; });
-    this.title.textContent = title;
+    try{
+      let title = "";
+      archetypes.forEach((archetype) => { title += `${archetype.name} `; });
+      this.title.textContent = title;
+    } catch {}
   }
 
 
   setUsername(username){
-    this.username.textContent = "- by " + username;
+    try{
+      this.username.textContent = "- by " + username;
+    } catch {}
   }
 
   setAdvice(advice){
-    this.removePreviousAdvice();
-    if(advice){
-      this.advice_title.textContent = "Creator's Advice About the Deck:";
-      this.advice.textContent = advice;
-    }
+    try{
+      this.removePreviousAdvice();
+      if(advice){
+        this.advice_title.textContent = "Creator's Advice About the Deck:";
+        this.advice.textContent = advice;
+      }
+    } catch {}
   }
 
   removePreviousAdvice(){
@@ -287,7 +293,9 @@ export default class extends Controller {
     new_deck.classList.add("data-deck-history-deck");
     new_deck.addEventListener("click", (event) => { this.rematchDeck(event.target.getAttribute("data-deck-id")) })
 
-    this.deck_history_div.appendChild(new_deck);
+    try{
+      this.deck_history_div.appendChild(new_deck);
+    } catch {}
   }
 
   rematchDeck(deck_id){

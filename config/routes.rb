@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :decks do
         get :random, on: :collection
-        get :specific_board, on: :collection
+        get :specific_deck, on: :collection
       end
     end
   end

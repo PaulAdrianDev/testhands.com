@@ -1,21 +1,23 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  view(event){
-    this.disableButtons();
-    this.setUpBoard(event);
-    this.enableButtons();
+  connect(){
+    this.setUpBoard(this.element.dataset.deckId);
   }
 
-  async setUpBoard(event){
-    const id = event.target.getAttribute("data-board-id");
-    let board = await this.fetchBoard(id);
+  async setUpBoard(id){
+    let deck = await this.fetchDeck(id);
 
-    if(board == null){
+    if(deck == null){
       alert("An error has occurred. Please report this to us.");
       return;
     }
 
+    const inner = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="dueling-board"]'),
+      "dueling-board"
+    )
+    inner.setUpOverlay(deck)
   }
 
   setCardsToBoard(cards){
@@ -34,21 +36,23 @@ export default class extends Controller {
     })
   }
 
-  async fetchBoard(id){
+  async fetchDeck(id){
     if(!Number.isInteger(Number(id)))
       return null;
     
     let data = null;
 
     try{
-      const res = await fetch(`/api/v1/decks/specific_board?board_id=${id}`);
+      const res = await fetch(`/api/v1/decks/specific_deck?deck_id=${id}`);
       data = await res.json();
+      console.log(data);
     }
     catch{
       return null;
     }
 
-    return data.board;
+
+    return data.deck;
   }
 
   setBoardTitle(board_name){

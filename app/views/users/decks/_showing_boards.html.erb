@@ -1,8 +1,7 @@
-<div data-controller="viewing-board" data-deck-id="<%= params[:id] %>" data-card-image-url="<%= asset_path('card.jpg')%>">
+<div data-controller="viewing-board" data-deck-id="<%= params[:id] %>">
 
   <h1 class="mb-0">Boards</h1>
-  <div data-controller="dueling-board">
-    <h2 class="text-center" data-viewing-board-target="board-name">Board Name</h2>
+  <div data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%> ">
     <%= render 'homepage/dueling/interface' %>
 
     <h1 class="mt-4 mb-0" data-dueling-board-target="board-information-title"></h1>
