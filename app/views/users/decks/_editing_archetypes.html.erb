@@ -1,6 +1,8 @@
 <% if @deck.archetypes.present? %>
-  <% @deck.archetypes.each do |archetype| %>
-    <button class="btn btn-primary me-2"><i class="bi bi-x-lg me-2 align-middle"></i><%= archetype.name %></button>
+  <% @deck.deck_archetypes.includes(:archetype).each do |deck_archetype| %>
+    <%= link_to deck_archetype_path(deck_archetype), data: { turbo_method: :delete }, class: "btn btn-primary me-2" do %>
+      <i class="bi bi-x-lg me-2 align-middle"></i><%= deck_archetype.archetype.name %>
+    <% end %>
   <% end %>
 <% end %>
 <button class="btn btn-outline-primary" data-action="click->editing-deck#openArchetypesTable"> + Add Archetype </button>

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :decks, controller: 'users/decks'
   end
 
+  resources :deck_archetype, only: %i[ create destroy ]
+
   get "signup", to: "users#new"
   get "login", to: "users#login"
 
