@@ -9,8 +9,6 @@
 
 <div class="editing-archetypes-table mt-3 text-center" data-editing-deck-target="archetypes-table">
   <% @archetypes.each do |archetype| %>
-    <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>">
-      <%= archetype.name %>
-    </button>
+    <%= link_to archetype.name, deck_archetype_index_path(deck_id: @deck.id, archetype_id: archetype.id), data: { turbo_method: :post }, class: "btn btn-outline-primary my-1 mx-1 rounded-5 px-4" %>
   <% end %>
 </div>
