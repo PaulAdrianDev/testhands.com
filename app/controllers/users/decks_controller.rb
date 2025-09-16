@@ -11,7 +11,7 @@ class Users::DecksController < ApplicationController
   end
 
   def edit
-
+    @archetypes = Archetype.all
   end
 
   def destroy
