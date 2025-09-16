@@ -5,7 +5,7 @@
 <% end %>
 <button class="btn btn-outline-primary"> + Add Archetype </button>
 
-<div class="decks-table mt-3 p-2 text-center">
+<div class="archetypes-table mt-3 p-2 text-center">
   <% @archetypes.each do |archetype| %>
     <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>">
       <%= archetype.name %>
