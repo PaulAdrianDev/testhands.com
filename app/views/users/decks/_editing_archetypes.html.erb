@@ -3,9 +3,9 @@
     <button class="btn btn-primary me-2"><i class="bi bi-x-lg me-2 align-middle"></i><%= archetype.name %></button>
   <% end %>
 <% end %>
-<button class="btn btn-outline-primary"> + Add Archetype </button>
+<button class="btn btn-outline-primary" data-action="click->editing-deck#openArchetypesTable"> + Add Archetype </button>
 
-<div class="archetypes-table mt-3 p-2 text-center">
+<div class="editing-archetypes-table mt-3 text-center" data-editing-deck-target="archetypes-table">
   <% @archetypes.each do |archetype| %>
     <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4" value="<%= archetype.id %>">
       <%= archetype.name %>

@@ -1,5 +1,4 @@
 <div data-controller="viewing-board" data-deck-id="<%= params[:id] %>">
-
   <h1 class="mb-0">Boards</h1>
   <div data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%> ">
     <%= render 'homepage/dueling/interface', new_deck_button: false %>

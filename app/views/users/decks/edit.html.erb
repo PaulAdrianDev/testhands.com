@@ -1,7 +1,9 @@
 <section>
   <%= link_to "< Back", (request.referer || user_path(@user)), class: "btn btn-danger mb-3" %>
-  <div>
-    <h2>Archetypes:</h2>
-    <%= render 'editing_archetypes' %>
+  <div data-controller="editing-deck">
+    <div>
+      <h2>Archetypes:</h2>
+      <%= render 'editing_archetypes' %>
+    </div>
   </div>
 </section>

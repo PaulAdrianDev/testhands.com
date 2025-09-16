@@ -11,7 +11,7 @@ class Users::DecksController < ApplicationController
   end
 
   def edit
-    @archetypes = Archetype.all
+    @archetypes = Archetype.where.not(id: @deck.archetypes.select(:id))
   end
 
   def destroy
