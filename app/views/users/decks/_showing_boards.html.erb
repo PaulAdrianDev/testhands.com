@@ -2,7 +2,7 @@
 
   <h1 class="mb-0">Boards</h1>
   <div data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%> ">
-    <%= render 'homepage/dueling/interface' %>
+    <%= render 'homepage/dueling/interface', new_deck_button: false %>
 
     <h1 class="mt-4 mb-0" data-dueling-board-target="board-information-title"></h1>
     <p class="mt-0 mb-5" data-dueling-board-target="board-information"></p>
