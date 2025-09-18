@@ -31,6 +31,11 @@ export default class extends Controller {
   }
 
   setBoardSpecificInformation(board){
+    if(!board){
+      this.addInvisibleCardsToEmptyRows([]);
+      return;
+    }
+    
     this.addCardsFor(board);
     this.setBoardInformation(board);
     this.setSummons(board);
@@ -97,7 +102,7 @@ export default class extends Controller {
       zone.appendChild(card_image);
       zones_used.push(card_and_position.position); 
     })
-
+  
     this.addInvisibleCardsToEmptyRows(zones_used);
   }
 
