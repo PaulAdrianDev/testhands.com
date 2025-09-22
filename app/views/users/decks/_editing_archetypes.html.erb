@@ -7,8 +7,12 @@
 <% end %>
 <button class="btn btn-outline-primary" data-action="click->editing-deck#openArchetypesTable"> + Add Archetype </button>
 
-<div class="editing-archetypes-table mt-3 text-center" data-editing-deck-target="archetypes-table">
-  <% @archetypes.each do |archetype| %>
-    <%= link_to archetype.name, deck_archetype_index_path(deck_id: @deck.id, archetype_id: archetype.id), data: { turbo_method: :post }, class: "btn btn-outline-primary my-1 mx-1 rounded-5 px-4" %>
-  <% end %>
+<div class="editing-archetypes-table mt-3 text-center" data-editing-deck-target="archetypes-table" data-controller="deck-search">
+  <label for="archetype-name">Archetype:</label>
+  <input type="text" id="archetype-name" placeholder="e.g. Ryzeal" data-deck-search-target="query" data-action="keyup->deck-search#search_decks" class="my-3">
+  <div data-deck-search-target="decks_table">
+    <% @archetypes.each do |archetype| %>
+      <%= link_to archetype.name, deck_archetype_index_path(deck_id: @deck.id, archetype_id: archetype.id), data: { turbo_method: :post }, class: "btn btn-outline-primary my-1 mx-1 rounded-5 px-4" %>
+    <% end %>
+  </div>
 </div>
