@@ -10,6 +10,7 @@ export default class extends Controller {
     else{
       table.style.maxHeight = "400px";
       event.target.textContent = "X Close Archetype Table";
+      table.scrollTo(0,0);
     }
   }
 

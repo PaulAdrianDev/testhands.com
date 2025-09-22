@@ -1,9 +1,21 @@
 <section>
   <%= link_to "< Back", user_deck_path(@user, @deck), class: "btn btn-danger mb-3" %>
   <div data-controller="editing-deck">
-    <div>
+    <div class="mb-3">
       <h2>Archetypes:</h2>
       <%= render 'editing_archetypes' %>
+    </div>
+    <div class="mb-3 align-middle">
+      <label for="tier" class="fs-2">Tier:</label>
+      <select name="tier" id="tier" class="fs-4">
+        <% ["1", "2", "3", "4", "5"].each do |tier| %>
+          <option
+          value="<%= tier %>"
+          <%= "selected" if tier == @deck.tier.to_s %>>
+            <%= tier %>
+          </option>
+        <% end %>
+      </select>
     </div>
   </div>
 </section>
