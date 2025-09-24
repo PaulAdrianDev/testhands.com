@@ -1,6 +1,6 @@
 class Users::DecksController < ApplicationController
   before_action :get_user
-  before_action :get_deck, only: %i[ show edit destroy ]
+  before_action :get_deck, only: %i[ show edit destroy update ]
 
   def new
     @deck = Deck.create!(tier: 5, advice: nil, user: @user)
@@ -12,6 +12,14 @@ class Users::DecksController < ApplicationController
 
   def edit
     @archetypes = Archetype.where.not(id: @deck.archetypes.select(:id))
+  end
+
+  def update
+    if @deck.update(deck_params)
+      redirect_to user_deck_path(@user, @deck), notice: "Changed Saved Successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -30,5 +38,9 @@ class Users::DecksController < ApplicationController
 
   def get_user
     @user = User.find(params[:user_id])
+  end
+
+  def deck_params
+    params.require(:deck).permit(:tier, :advice)
   end
 end
