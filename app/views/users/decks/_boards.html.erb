@@ -1,5 +1,7 @@
+<h1 class="mb-0">Boards</h1>
+
+<% if @deck.boards.size > 0 %>
 <div data-controller="viewing-board" data-deck-id="<%= params[:id] %>">
-  <h1 class="mb-0">Boards</h1>
   <div data-controller="dueling-board" data-card-image-url="<%= asset_path('card.jpg')%> ">
     <%= render 'homepage/dueling/interface', new_deck_button: false %>
 
@@ -7,3 +9,6 @@
     <p class="mt-0 mb-5" data-dueling-board-target="board-information"></p>
   </div>
 </div>
+<% else %>
+  <p>This deck doesn't have any boards yet</p>
+<% end %>
