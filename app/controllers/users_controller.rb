@@ -52,6 +52,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+
   def any_information_is_missing?
     params_needed = [ :username, :email_address, :password, :password_confirmation ]
 

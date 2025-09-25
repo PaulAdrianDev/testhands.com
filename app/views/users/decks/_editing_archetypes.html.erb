@@ -1,6 +1,6 @@
 <% if @deck.archetypes.present? %>
   <% @deck.deck_archetypes.includes(:archetype).each do |deck_archetype| %>
-    <%= link_to deck_archetype_path(deck_archetype), data: { turbo_method: :delete }, class: "btn btn-primary me-2" do %>
+    <%= link_to deck_archetype_path(deck_archetype), data: { turbo_method: :delete }, class: "btn btn-primary me-2 my-2" do %>
       <i class="bi bi-x-lg me-2 align-middle"></i><%= deck_archetype.archetype.name %>
     <% end %>
   <% end %>

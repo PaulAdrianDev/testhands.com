@@ -5,6 +5,10 @@
       <h2>Archetypes:</h2>
       <%= render 'editing_archetypes' %>
     </div>
+    <div class="mb-3">
+      <h2>Boards:</h2>
+      <%= render 'board_selection' %>
+    </div>
     <%= form_with model: @deck, url: user_deck_path(@user, @deck) do |form| %>
       <div class="mb-3 align-middle">
         <%= form.label :tier, "Tier: ", class: "fs-2" %>
@@ -18,7 +22,6 @@
         <br>
         <%= form.text_area :advice, rows: 5, class: "w-100" %>
       </div>
-      
       <%= form.submit "Save", class: "btn btn-success fs-5 px-4 mt-3" %>
     <% end %>
   </div>

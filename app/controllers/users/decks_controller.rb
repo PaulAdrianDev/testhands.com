@@ -1,5 +1,5 @@
 class Users::DecksController < ApplicationController
-  before_action :get_user
+  before_action :set_user
   before_action :get_deck, only: %i[ show edit destroy update ]
 
   def new
@@ -36,7 +36,7 @@ class Users::DecksController < ApplicationController
     @deck = @user.decks.find(params[:id])
   end
 
-  def get_user
+  def set_user
     @user = User.find(params[:user_id])
   end
 

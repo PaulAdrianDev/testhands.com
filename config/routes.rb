@@ -14,8 +14,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "homepage#index"
   resources :users, only: %i[ create edit update show destroy ] do
-    resources :decks, controller: 'users/decks'
+    resources :decks, module: :users do
+      resources :boards, module: :decks
+    end
   end
+
 
   resources :deck_archetype, only: %i[ create destroy ]
 
