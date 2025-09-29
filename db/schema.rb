@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_173249) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_29_075327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -111,13 +111,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_173249) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "board_cards", "boards"
+  add_foreign_key "board_cards", "boards", on_delete: :cascade
   add_foreign_key "board_cards", "cards"
   add_foreign_key "boards", "board_types"
-  add_foreign_key "boards", "decks"
+  add_foreign_key "boards", "decks", on_delete: :cascade
   add_foreign_key "deck_archetypes", "archetypes"
-  add_foreign_key "deck_archetypes", "decks"
+  add_foreign_key "deck_archetypes", "decks", on_delete: :cascade
   add_foreign_key "decks", "users"
-  add_foreign_key "monster_card_details", "cards"
+  add_foreign_key "monster_card_details", "cards", on_delete: :cascade
   add_foreign_key "sessions", "users"
 end
