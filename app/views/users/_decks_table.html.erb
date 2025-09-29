@@ -2,6 +2,9 @@
   <% if @decks.empty? %>
     <h1>You don't have any decks yet.</h1> 
   <% else %>
+    <label for="user-deck-search">Search by Name:</label>
+    <input type="text" id="user-deck-search" placeholder="e.g. Ryzeal" data-action="keyup->deck-search#search_decks" data-deck-search-target="query">
+    
     <% @decks.each do |deck| %>
       <div class="user-deck border border-primary rounded-3 py-3 px-4 mt-4">
         <p class="d-inline-block align-middle my-0 mx-1">#<%= deck.id %></p>  

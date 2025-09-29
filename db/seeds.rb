@@ -66,9 +66,6 @@ def create_deck(tier:, advice:, user:, archetype_names:, boards:)
 end
 
 def remove_decks
-  BoardCard.delete_all
-  Board.delete_all
-  DeckArchetype.delete_all
   Deck.delete_all
 end
 
