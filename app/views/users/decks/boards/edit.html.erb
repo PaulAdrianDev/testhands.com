@@ -1,4 +1,6 @@
 <section>
-  <%= link_to "< Back", edit_user_deck_path(@user, @deck), class: "btn btn-danger" %>
+  <%= link_to "< Back", edit_user_deck_path(@user, @deck), class: "btn btn-primary" %>
+  <%= link_to "Delete", user_deck_board_path(@user, @deck, @board), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this board?" }, class: "btn btn-danger" %>
   
+  <%= @board.inspect %>
 </section>

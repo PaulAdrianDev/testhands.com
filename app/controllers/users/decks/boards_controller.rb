@@ -1,9 +1,10 @@
 class Users::Decks::BoardsController < ApplicationController
   before_action :set_user
   before_action :set_deck
+  before_action :set_board, only: %i[ edit destroy ]
 
-  def new
-    @board = Board.new
+  def edit
+    
   end
 
   def create
@@ -22,6 +23,14 @@ class Users::Decks::BoardsController < ApplicationController
     end
   end
 
+  def destroy
+    if @board.destroy
+      redirect_to edit_user_deck_path(@user, @deck), notice: "Board Deleted Successfully."
+    else
+      redirect_to edit_user_deck_board_path(@user, @deck, @board), alert: "Error Deleting Board."
+    end
+  end
+
   private
   
   def set_user
@@ -30,5 +39,9 @@ class Users::Decks::BoardsController < ApplicationController
 
   def set_deck
     @deck = Deck.find(params[:deck_id])
+  end
+
+  def set_board
+    @board = Board.find(params[:id])
   end
 end
