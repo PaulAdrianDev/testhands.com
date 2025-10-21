@@ -4,7 +4,6 @@
   <% end %> 
 <% end %>
 
-<%# link_to "+ Add New Board", new_user_deck_board_path(@user, @deck), class: "btn btn-outline-primary my-1" %>
 <button class="btn btn-outline-primary" data-action="click->editing-deck#openBoardTypeTable">+ Add New Board</button>
 <div data-editing-deck-target="add-board-type-table" class="board-type-table">
   <% @board_types_not_yet_added.each do |type| %>

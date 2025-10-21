@@ -58,6 +58,9 @@ export default class extends Controller {
     if(!primary_board)
       return true;
 
+    if(primary_board.board_cards.length == 0)
+      return true;
+
     return false;
   }
 
