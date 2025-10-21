@@ -1,5 +1,7 @@
 <% @deck.boards.each do |board| %>
-  <button class="btn btn-primary my-1"><i class="bi bi-pencil-fill me-2"></i><%= board.board_type.name %></button>
+  <%= link_to edit_user_deck_board_path(@user, @deck, board), class: "btn btn-primary my-1" do %>
+    <i class="bi bi-pencil-fill me-2"></i><%= board.board_type.name %>
+  <% end %> 
 <% end %>
 
 <%# link_to "+ Add New Board", new_user_deck_board_path(@user, @deck), class: "btn btn-outline-primary my-1" %>
