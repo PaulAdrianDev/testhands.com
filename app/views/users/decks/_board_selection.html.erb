@@ -1,4 +1,11 @@
 <% @deck.boards.each do |board| %>
-  <button class="btn btn-primary my-1"><%= board.board_type.name %></button>
+  <button class="btn btn-primary my-1"><i class="bi bi-x-lg me-2 align-middle"></i><%= board.board_type.name %></button>
 <% end %>
-<%= link_to "+ Add New Board", new_user_deck_board_path(@user, @deck), class: "btn btn-outline-primary my-1" %>
+
+<%# link_to "+ Add New Board", new_user_deck_board_path(@user, @deck), class: "btn btn-outline-primary my-1" %>
+<button class="btn btn-outline-primary" data-action="click->editing-deck#openBoardTypeTable">+ Add New Board</button>
+<div data-editing-deck-target="add-board-type-table" class="board-type-table">
+  <% @board_types_not_yet_added.each do |type| %>
+    <button class="btn btn-outline-primary m-2">+ <%= type %></button>
+  <% end %>
+</div>

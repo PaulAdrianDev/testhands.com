@@ -12,6 +12,9 @@ class Users::DecksController < ApplicationController
 
   def edit
     @archetypes = Archetype.where.not(id: @deck.archetypes.select(:id))
+
+    types = @deck.boards.joins(:board_type).pluck("board_types.name")
+    @board_types_not_yet_added = BoardType::TYPES - types
   end
 
   def update

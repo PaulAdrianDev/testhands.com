@@ -3,7 +3,7 @@ class Users::Decks::BoardsController < ApplicationController
   before_action :set_deck
 
   def new
-
+    @board = Board.new
   end
 
   private
