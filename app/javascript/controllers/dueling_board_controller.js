@@ -3,11 +3,15 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect(){
     window.deck_history = {};
-    sessionStorage.setItem("current_deck_id", 0);
+    sessionStorage.setItem("current_deck_id", -1);
     window.consistent_information = {}; // tier, archetype_id, user
   }
 
   open(deck, info){
+    if(this.deckInvalid(deck)){
+      alert("An error has occurred. Please report this to us. INVALID_DECK_ERROR");
+      return;
+    }
     deck_history[deck.id] = deck;
     consistent_information = info;
     this.openDuelingOverlay();
@@ -47,6 +51,14 @@ export default class extends Controller {
     boards.forEach((board) =>{
       this.addOptionFor(board);
     });
+  }
+
+  deckInvalid(deck){
+    const primary_board = deck.boards.find(board => board.board_type.name === "Full Combo 1");
+    if(!primary_board)
+      return true;
+
+    return false;
   }
 
   changeBoard(board_id){
@@ -229,11 +241,19 @@ export default class extends Controller {
     this.openOverlay(this.overlay);
   }
 
+  closeDuelingOverlay(){
+    this.closeOverlay(this.overlay);
+  }
+
   setTitle(archetypes){
     try{
       let title = "";
       archetypes.forEach((archetype) => { title += `${archetype.name} `; });
-      this.title.textContent = title;
+      if(title != "")
+        this.title.textContent = title;
+      else
+        this.title.textContent = "N.A";
+
     } catch {}
   }
 
@@ -260,8 +280,8 @@ export default class extends Controller {
   }
 
   close(){
-    sessionStorage.setItem("current_deck_id", 0);
-    this.closeOverlay(this.overlay);
+    sessionStorage.setItem("current_deck_id", -1);
+    this.closeDuelingOverlay();
   }
 
   openOverlay(overlay){
