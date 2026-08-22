@@ -1,5 +1,6 @@
 class Users::DecksController < ApplicationController
   before_action :set_user
+  before_action :allow_only_logged_in_user, only: %i[ new edit destroy update ]
   before_action :get_deck, only: %i[ show edit destroy update ]
 
   def new
@@ -45,5 +46,9 @@ class Users::DecksController < ApplicationController
 
   def deck_params
     params.require(:deck).permit(:tier, :advice)
+  end
+
+  def allow_only_logged_in_user
+    redirect_to user_path(@user), alert: "Access Forbidden." if @user != @logged_in_user
   end
 end
