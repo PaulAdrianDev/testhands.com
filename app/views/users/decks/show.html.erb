@@ -1,10 +1,12 @@
 <section>
   <%= link_to "< Back", user_path(@user), class: "btn btn-danger" %>
   <h1 class="text-center">
-    <%= @deck.name %> 
-    <%= link_to edit_user_deck_path(@user, @deck), class: "btn btn-primary ms-2" do %>
-    <i class="bi bi-pencil-fill me-1"></i>
-    Edit
+    <%= @deck.name %>
+    <% if @user == @logged_in_user %>
+      <%= link_to edit_user_deck_path(@user, @deck), class: "btn btn-primary ms-2" do %>
+      <i class="bi bi-pencil-fill me-1"></i>
+      Edit
+      <% end %>
     <% end %>
   </h1>
   <div>

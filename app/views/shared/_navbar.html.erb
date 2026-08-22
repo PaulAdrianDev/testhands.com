@@ -24,7 +24,7 @@
           </li>
           <li class="nav-item">
             <% if authenticated? %>
-              <%= link_to "Profile", user_path(@user.id), class: "btn btn-primary px-4" %>
+              <%= link_to "Profile", user_path(@logged_in_user.id), class: "btn btn-primary px-4" %>
             <% else %>
               <%= link_to "Log In", login_path, class: "btn btn-primary px-4" %>
             <% end %>
