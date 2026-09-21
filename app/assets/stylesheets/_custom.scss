@@ -167,6 +167,15 @@ div[data-dueling-board-target="card-details"]:hover{
   transform:scale(1.05);
 }
 
+div[data-dueling-board-target="options"] label{
+  cursor:pointer;
+  transition: text-shadow 0.2s;
+}
+
+div[data-dueling-board-target="options"] label:hover{
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
 #dueling-board .usable-zone:has(> img:hover){
   transform: scale(1.015);
 }

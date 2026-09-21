@@ -200,7 +200,7 @@ export default class extends Controller {
     sessionStorage.setItem(newOption.id, JSON.stringify(board));
 
     let newOptionLabel = document.createElement("label");
-    newOptionLabel.for = newOption.id;
+    newOptionLabel.htmlFor = newOption.id;
     newOptionLabel.textContent = board.board_type.name;
 
     let div = document.createElement("div");
