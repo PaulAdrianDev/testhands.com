@@ -19,6 +19,10 @@ class Deck < ApplicationRecord
     includes(:user, :archetypes, boards: [ :board_type, { board_cards: :card } ])
   }
 
+  scope :with_primary_board, -> {
+    where(id: Board.joins(:board_type).where(board_types: { name: "Full Combo 1" }).select(:deck_id))
+  }
+
   scope :with_tier, ->(tier) {
     return all if tier.blank? || tier == "any"
     where(tier: tier.to_i)

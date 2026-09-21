@@ -8,6 +8,7 @@ module Api
         ids = Deck
           .with_archetype_id(params[:archetype_id])
           .with_tier(params[:tier])
+          .with_primary_board
           .where.not(id: except_id)
           .pluck(:id)
 
