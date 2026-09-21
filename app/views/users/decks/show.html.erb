@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%# the options and summons are filled in by JS, so a cached preview of this page would show the previous visit's ones for a moment %>
+  <meta name="turbo-cache-control" content="no-preview">
+<% end %>
 <section>
   <%= link_to "< Back", user_path(@user), class: "btn btn-danger" %>
   <h1 class="text-center">

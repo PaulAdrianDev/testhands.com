@@ -8,6 +8,10 @@ export default class extends Controller {
   async setUpBoard(id){
     let deck = await this.fetchDeck(id);
 
+    if(!this.element.isConnected) return; // Turbo may have replaced this page (e.g. a cached preview) while fetching, its board is gone so there is nothing to set up
+
+    this.element.removeAttribute("data-loading"); // stops the skeleton, the board is drawn synchronously below so it is never shown empty
+
     if(deck == null){
       alert("An error has occurred. Please report this to us.");
       return;

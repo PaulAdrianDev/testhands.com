@@ -80,7 +80,6 @@ export default class extends Controller {
 
   addCardsFor(board){
     this.removeAllCards();
-    let zones_used = [];
 
     const zones_with_overlays = {
       graveyard: {
@@ -113,10 +112,7 @@ export default class extends Controller {
       }
 
       zone.appendChild(card_image);
-      zones_used.push(card_and_position.position); 
     })
-  
-    this.addInvisibleCardsToEmptyRows(zones_used);
   }
 
   setSummons(board){
@@ -143,31 +139,6 @@ export default class extends Controller {
     card_image.setAttribute("data-card-description", card.description); 
     card_image.addEventListener("click", (event) => { this.openCardDetails(event.target) });
     return card_image;
-  }
-
-  addInvisibleCardsToEmptyRows(zones){ // this is needed because the table td's have set width but no height, if a row doesn't have a single card in it then the whole row becomes height 0
-    let table_rows = this.board.querySelectorAll("tr");
-    let cards_in_row = [false, false, false, false]
-
-    zones.forEach((zone) => {
-      if(zone.includes("emz") || zone == "banishment")
-        cards_in_row[0] = true;
-      else if(zone.includes("mmz") || zone == "field" || zone == "graveyard")
-        cards_in_row[1] = true;
-      else if(zone.includes("stz") || zone == "deck" || zone == "extra_deck")
-        cards_in_row[2] = true;
-      else
-        cards_in_row[3] = true;
-    });
-    
-    let invisible_card = document.createElement("img");
-    invisible_card.src = this.element.dataset.cardImageUrl;
-    invisible_card.style.opacity = 0;
-    invisible_card.style.pointerEvents = "none";
-    
-    for(let i = 0; i < cards_in_row.length; i++)
-      if(cards_in_row[i] == false)
-        table_rows[i].querySelector(".usable-zone").appendChild(invisible_card.cloneNode(false));
   }
 
   removeAllCards(){

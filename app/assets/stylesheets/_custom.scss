@@ -113,6 +113,42 @@ div[data-dueling-board-target="board-outer-div"]{
   transition: transform 0.2s;
 }
 
+/* the td's have a set width but no height, so an empty zone gets the height of a card (card.jpg is 268x391), otherwise a row without cards collapses to height 0 */
+.dueling-board .usable-zone:empty::before{
+  content: "";
+  display: block;
+  aspect-ratio: 268 / 391;
+}
+
+/* skeleton shown while the deck loads, the board, options and summons are drawn by JS once the data arrives */
+@keyframes skeleton-shimmer{
+  from{ background-position: 200% 0; }
+  to{ background-position: -200% 0; }
+}
+
+[data-loading] .dueling-board .usable-zone,
+[data-loading] [data-dueling-board-target="options"]::before,
+[data-loading] [data-dueling-board-target="summons"]::before{
+  background: linear-gradient(90deg, #171717 25%, #2a2a2a 50%, #171717 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s linear infinite;
+}
+
+[data-loading] [data-dueling-board-target="options"]::before,
+[data-loading] [data-dueling-board-target="summons"]::before{
+  content: "";
+  display: block;
+  border-radius: 0.25rem;
+}
+
+[data-loading] [data-dueling-board-target="options"]::before{
+  height: 6rem;
+}
+
+[data-loading] [data-dueling-board-target="summons"]::before{
+  height: 4.5rem;
+}
+
 .border-lg-left{
   border-left: none;
 }
