@@ -6,7 +6,7 @@ module Api
       def random
         except_id = params[:except].present? ? params[:except].to_i : -1
         ids = Deck
-          .with_archetype_id(params[:archetype_id])
+          .with_archetype_id(params[:archetype_id].presence&.to_i)
           .with_tier(params[:tier])
           .with_primary_board
           .where.not(id: except_id)

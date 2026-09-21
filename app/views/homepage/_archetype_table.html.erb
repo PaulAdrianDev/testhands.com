@@ -2,8 +2,8 @@
   <% @archetypes.each do |archetype| %>
     <button class="btn btn-outline-primary my-1 mx-1 rounded-5 px-4"
     value="<%= archetype.id %>" 
-    data-action="specific-deck#open"
-    <%= "disabled" if archetype.decks.empty? %>>
+    data-action="deck-search#open"
+    <%= "disabled" unless @playable_archetype_ids.include?(archetype.id) %>>
       <%= archetype.name %>
     </button>
   <% end %>

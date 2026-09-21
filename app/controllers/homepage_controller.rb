@@ -10,6 +10,7 @@ class HomepageController < ApplicationController
       "4": "Rogue Decks",
       "5": "Weak Decks"
     }
-    @archetypes = Archetype.includes(:decks)
+    @archetypes = Archetype.all
+    @playable_archetype_ids = DeckArchetype.where(deck_id: Deck.with_primary_board.select(:id)).distinct.pluck(:archetype_id)
   end
 end

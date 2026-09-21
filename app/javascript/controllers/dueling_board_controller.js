@@ -318,8 +318,8 @@ export default class extends Controller {
         randomController.open(consistent_information.tier);
       break;
       case "archetype_id":
-        const specific_deck = document.getElementById("random-deck-tab");
-        const specificController = this.application.getControllerForElementAndIdentifier(specific_deck, "random-board");
+        const specific_deck = document.getElementById("specific-deck-tab");
+        const specificController = this.application.getControllerForElementAndIdentifier(specific_deck, "deck-search");
         specificController.open(consistent_information.archetype_id);
       break;
     }
