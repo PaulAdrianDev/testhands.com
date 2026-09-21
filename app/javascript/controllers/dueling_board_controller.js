@@ -50,7 +50,6 @@ export default class extends Controller {
   }
 
   changeBoard(board_id){
-    this.clearBoardOverlayCards();
     let board = JSON.parse(sessionStorage.getItem(board_id));
     this.setBoardSpecificInformation(board);
   }
@@ -164,6 +163,8 @@ export default class extends Controller {
       while(zone.firstChild)
         zone.removeChild(zone.lastChild);
     })
+
+    this.clearBoardOverlayCards();
   }
 
   setBoardInformation(board){
