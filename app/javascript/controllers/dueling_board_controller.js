@@ -51,6 +51,16 @@ export default class extends Controller {
     boards.forEach((board) =>{
       this.addOptionFor(board);
     });
+
+    if(!boards.some(board => board.board_type.name === "Full Combo 1"))
+      this.addMissingPrimaryBoardWarning();
+  }
+
+  addMissingPrimaryBoardWarning(){
+    let warning = document.createElement("p");
+    warning.classList.add("text-danger", "mb-2");
+    warning.textContent = "Full Combo 1 is missing";
+    this.options.prepend(warning);
   }
 
   changeBoard(board_id){
