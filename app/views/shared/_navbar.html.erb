@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-none navbar-expand-md mb-4">
   <div class="container-fluid">
     <%= link_to root_path do %>
-      <% image_tag "logo.png", class: "nav-logo d-block d-md-none" %>
+      <%= image_tag "logo.png", class: "nav-logo d-block d-md-none" %>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,11 @@
           <li class="nav-item">
             <%= link_to "How It Works", root_path(anchor: "how-it-works"), class: "nav-link" %>
           </li>
-          <%= link_to root_path do %>
-            <% image_tag "logo.png", class: "nav-logo d-none d-md-block" %>
-          <% end %>
+          <li class="nav-item">
+            <%= link_to root_path do %>
+              <%= image_tag "logo.png", class: "nav-logo d-none d-md-block" %>
+            <% end %>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Contributors</a>
           </li>
@@ -29,6 +31,7 @@
               <%= link_to "Log In", login_path, class: "btn btn-primary px-4" %>
             <% end %>
           </li>
+        </ul>
       </div>
     </div>
   </div>

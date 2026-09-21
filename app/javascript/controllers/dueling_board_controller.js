@@ -1,5 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
+const EMPTY_BOARD = {
+  board_cards: [],
+  information: "",
+  hand_summons: "N/A",
+  deck_summons: "N/A",
+  gy_banishment_summons: "N/A"
+};
+
 export default class extends Controller {
   connect(){
     window.deck_history = {};
@@ -15,7 +23,8 @@ export default class extends Controller {
   }
 
   setUpOverlay(deck){
-    const primary_board = deck.boards.find(board => board.board_type.name === "Full Combo 1");
+    // A deck may have no "Full Combo 1" board (e.g. when viewed from a user's profile), so we show an empty board instead of crashing so that the other boards can still be picked from the options
+    const primary_board = deck.boards.find(board => board.board_type.name === "Full Combo 1") ?? EMPTY_BOARD;
     sessionStorage.setItem("current_deck_id", deck.id);
     this.closeCardDetails();
     this.setDeckSpecificInformation(deck);
@@ -31,11 +40,6 @@ export default class extends Controller {
   }
 
   setBoardSpecificInformation(board){
-    if(!board){
-      this.addInvisibleCardsToEmptyRows([]);
-      return;
-    }
-    
     this.addCardsFor(board);
     this.setBoardInformation(board);
     this.setSummons(board);
